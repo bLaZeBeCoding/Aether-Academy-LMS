@@ -136,10 +136,8 @@ Robust security measures were woven into the implementation phase to protect sen
 \begin{itemize}
     \item \textbf{Password Cryptography:} The system completely deprecates plaintext passwords. It utilizes PHP's native \texttt{password\_hash()} utilizing the BCrypt algorithm. A legacy fallback script was also implemented to seamlessly auto-upgrade older plaintext accounts to BCrypt upon their next login.
     \item \textbf{SQL Injection Prevention:} All user inputs, especially within the authentication and admission flows, are sanitized using \texttt{mysqli\_real\_escape\_string()} prior to database execution.
-    \item \textbf{Session Hijacking Mitigation:} A custom jQuery script actively monitors client-side mouse and keyboard idle time, automatically destroying the PHP session and redirecting to the login page after 120 seconds of inactivity.
-\end{itemize}
-
-\section{AJAX \& Asynchronous Workflows}
+    \item \textbf{Session Hijacking Mitigation:} A custom jQuery script actively monitors client-side mouse and keyboard idle time, automatically destroying the PHP session and redirecting to the login page after 90 seconds of inactivity, dynamically triggering an animated CSS toast notification.
+\item \textbf{Intellectual Property Protection:} A multi-layered authorship verification system (including an Easter Egg UI trigger, hidden console scripts, and SQL metadata) was engineered to protect the project architecture.`n  \end{itemize}`n`n  \section{AJAX \& Asynchronous Workflows}
 To elevate the user experience, the public-facing Admission form was detached from standard synchronous POST behavior. Using jQuery AJAX, the form data is serialized and transmitted to \texttt{data\_check.php}. The server returns a status payload, and jQuery dynamically renders a Bootstrap success/error alert in the DOM.
 
 % ------------------------- CHAPTER 4: SCREENSHOTS -------------------------
@@ -217,3 +215,4 @@ While the current iteration of the system is feature-complete for its defined sc
 \end{itemize}
 
 \end{document}
+

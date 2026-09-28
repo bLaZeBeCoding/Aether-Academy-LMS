@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #0f172a !important; /* Slate 900 */
+    color: #f8fafc !important;
+}
+
+/* TOP NAVBAR */
+.header {
+    background-color: #020617; /* Slate 950 */
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 2px solid #06b6d4; /* Neon Teal */
+}
+
+.dashhead {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none !important;
+    letter-spacing: 1px;
+}
+
+.dashhead:hover {
+    color: #06b6d4; 
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.logout .btn {
+    background: linear-gradient(45deg, #06b6d4, #8b5cf6);
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.logout .btn:hover {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+    transform: translateY(-2px);
+}
+
+/* SIDEBAR */
+aside ul {
+    background-color: #020617; /* Slate 950 */
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    padding-top: 30px;
+    text-align: left;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+}
+
+aside ul li {
+    list-style: none;
+}
+
+aside ul li a {
+    color: #94a3b8;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    padding: 16px 30px;
+    text-decoration: none !important;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+aside ul li a:hover {
+    background-color: #1e293b;
+    color: #06b6d4;
+    border-left: 4px solid #06b6d4; 
+    padding-left: 36px; 
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+/* MAIN CONTENT AREA */
+.content {
+    margin-left: 250px;
+    margin-top: 70px;
+    padding: 40px;
+}
+
+h1, h2, h3, h4, h5, h6 { color: #f8fafc !important; }
+h1, h2 { font-size: 28px; font-weight: 700; margin-bottom: 30px; }
+
+/* CARDS OVERRIDE */
+.card {
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+}
+
+/* GENERAL FORM / TABLE OVERRIDES */
+table {
+    background-color: #1e293b !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    overflow: hidden;
+    color: #f8fafc !important;
+}
+th {
+    background-color: #0f172a !important; 
+    color: #06b6d4 !important;
+    font-weight: 600;
+    padding: 16px !important;
+    border: none !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #334155 !important;
+}
+td {
+    padding: 16px !important;
+    vertical-align: middle !important;
+    border-top: 1px solid #334155 !important;
+    color: #cbd5e1 !important;
+    background-color: #1e293b !important;
+}
+
+/* Form Inputs */
+.form-label {
+    color: #cbd5e1;
+}
+.form-control, .form-select {
+    background-color: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #06b6d4 !important;
+    box-shadow: 0 0 0 0.25rem rgba(6, 182, 212, 0.25) !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #06b6d4 !important;
+    border: none !important;
+    font-weight: 500;
+    color: #0f172a !important;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+}
+.btn-primary:hover {
+    background-color: #0891b2 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+.btn-danger {
+    background-color: #ef4444 !important; 
+    border: none !important;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(239,68,68,0.3);
+}
+.btn-danger:hover {
+    background-color: #dc2626 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(239,68,68,0.4);
+}
+.btn-success {
+    background-color: #10b981 !important;
+    border: none !important;
+}
+.btn-secondary {
+    background-color: #475569 !important;
+    border: none !important;
+}
+
+/* DataTables Text Override */
+.dataTables_wrapper, .dataTables_info, .dataTables_length, .dataTables_filter {
+    color: #cbd5e1 !important;
+}
+
+/* RESPONSIVE & COLLAPSIBLE SIDEBAR */
+aside ul {
+    transition: all 0.3s ease;
+}
+
+.content {
+    transition: all 0.3s ease;
+}
+
+/* When collapsed by button */
+body.sidebar-collapsed aside ul {
+    left: -250px;
+}
+body.sidebar-collapsed .content {
+    margin-left: 0;
+}
+
+/* Responsive for mobile screens */
+@media (max-width: 768px) {
+    aside ul {
+        left: -250px; /* Hidden by default on mobile */
+    }
+    .content {
+        margin-left: 0; /* Full width content */
+        padding: 20px;
+    }
+    
+    /* When toggled ON in mobile */
+    body.sidebar-collapsed aside ul {
+        left: 0;
+    }
+    
+    .dashhead {
+        font-size: 18px;
+    }
+    
+    .header {
+        padding: 0 15px;
+    }
+}
+
+
+
+/* Fixes for text visibility on dark background */
+.text-muted { color: #94a3b8 !important; }
+.form-control::placeholder { color: #94a3b8 !important; opacity: 1; }
+

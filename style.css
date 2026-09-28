@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins',sans-serif;
+}
+
+nav {
+    position: fixed;
+    background-color: midnightblue;
+    height: 70px;
+    width: 100%;
+    z-index: 1;
+}
+
+.logo {
+    font-size: 25px;
+    position: relative;
+    left: 5%;
+    color: white;
+    font-weight: bold;
+    line-height: 70px;
+}
+
+ul {
+    position: relative;
+    float: right;
+    margin-right: 20px;
+}
+
+ul li {
+    display: inline-block;
+    line-height: 70px;
+    margin: 0 15px;
+}
+ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+}
+
+.main_bg {
+    width: 100%;
+    height: 650px;
+}
+
+.section1 {
+    padding-top: 70px;
+}
+
+.welcome_img {
+    width: 100%;
+    height: 250px;
+}
+
+.container {
+    padding-top: 70px;
+}
+
+.teacher {
+    width: 90%;
+    height: 400px;
+}
+
+.courses {
+    width: 90%;
+    height: 300px;
+}
+
+.label_text {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 20px;
+}
+
+.input_deg {
+    width: 25%;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid blue;
+}
+
+.adm_int {
+    padding-top: 10px;
+}
+
+.input_txt {
+    width: 25%;
+    height: 120px;
+    border-radius: 10px;
+    border: 2px solid blue;
+}
+
+#submit {
+    position: relative;
+    width: 15%;
+    left: 2%;
+}
+
+footer {
+    background-color: black;
+    height: 90px;
+    width: 100%;
+}
+
+footer h3 {
+    text-align: center;
+    color: white;
+    top: 30%;
+    position: relative;
+}
+
+.admission_form {
+    padding-bottom: 50px;
+    padding-top: 20px;
+}
+
+
+/* LOGIN.PHP */
+
+.form_deg {
+    padding-top: 200px;
+}
+
+.label_deg {
+    display: inline-block;
+    color: #ccc;
+    width: 100px;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.login_form {
+    background-color: #303030;
+    width: 400px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.title_deg {
+    background-color: #303030;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    width: 400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+.onlyloginphp {
+    background: url("school1.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}

@@ -1,0 +1,219 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Formatting
+\onehalfspacing
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+% Code snippet styling
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\begin{document}
+
+% ------------------------- TITLE PAGE -------------------------
+\begin{titlepage}
+    \begin{center}
+        \vspace*{2cm}
+        
+        \Huge
+        \textbf{AETHER ACADEMY}
+        
+        \vspace{0.5cm}
+        \LARGE
+        Advanced Student Management System
+        
+        \vspace{1.5cm}
+        
+        \textbf{Project Report} \\
+        \large Submitted in partial fulfillment of the requirements for the Web UI and Content Management Syllabus
+        
+        \vspace{2cm}
+        
+        \textbf{Submitted By:}\\
+        \large
+        Uday Praveen \\
+        PRN: 23030124196
+        
+        \vspace{2cm}
+        
+        \textbf{Guided By:}\\
+        \large
+        Prof. Shashank T. Gaikwad
+        
+        \vfill
+        
+        \Large
+        Symbiosis Institute of Computer Studies and Research (SICSR)\\
+        Pune\\
+        \vspace{0.5cm}
+        2026
+        
+    \end{center}
+\end{titlepage}
+
+% ------------------------- INDEX -------------------------
+\tableofcontents
+\newpage
+
+% ------------------------- CHAPTER 1: INTRODUCTION -------------------------
+\chapter{Introduction}
+
+\section{Overview}
+The advent of digital transformation in the educational sector has necessitated the transition from legacy, paper-based administrative systems to dynamic, centralized web applications. Aether Academy is a highly responsive, modern Student Management System developed to streamline academic operations. The platform serves as a unified digital ecosystem where institutional administrators can efficiently manage students, faculty, and academic courses, while students are empowered with real-time analytics regarding their academic standing and attendance. The system is built upon a robust relational database and features a bespoke "Night Owl" dark mode aesthetic.
+
+\section{Problem Statement}
+Traditional academic institutions often rely on fragmented software or manual ledger systems to handle daily operations such as student admissions, course assignments, and attendance tracking. This disconnected approach results in severe data redundancy, high margins for human error, inefficient administrative workflows, and a critical lack of transparency for students who wish to monitor their real-time attendance. There is a pressing need to digitize, secure, and automate these workflows into a single, cohesive web application that provides instant data retrieval and asynchronous user interactions.
+
+\section{Objectives}
+The primary objectives of this project are:
+\begin{itemize}
+    \item To design and deploy a secure, dual-role (Admin and Student) authentication architecture.
+    \item To automate the admission application process utilizing asynchronous AJAX requests to prevent disruptive page reloads.
+    \item To provide administrators with comprehensive CRUD (Create, Read, Update, Delete) capabilities over Students, Faculty, and dynamic Course catalogs.
+    \item To engineer a relational database schema capable of mapping students to specific courses and tracking daily attendance on a granular level.
+    \item To empower students with a personalized dashboard featuring real-time attendance analytics and visual progress indicators.
+    \item To enforce enterprise-grade security protocols, specifically targeting password cryptography and SQL injection mitigation.
+\end{itemize}
+
+\section{Scope of the Project}
+The scope of the Aether Academy project encompasses the full-stack development of a web-based management portal. On the frontend, it includes a fully responsive Bootstrap 5 interface tailored with a custom Dark Mode UI, utilizing jQuery for DOM manipulation. On the backend, the scope includes PHP 8 session management, business logic routing, and MySQL relational data handling. The project strictly focuses on core academic workflows (Admissions, Courses, Enrollments, and Attendance) and does not currently extend into financial accounting or learning management system (LMS) features like assignment submissions.
+
+% ------------------------- CHAPTER 2: TECHNOLOGIES USED -------------------------
+\chapter{Technologies Used}
+The architecture of Aether Academy is fundamentally rooted in the LAMP stack, heavily augmented with modern frontend libraries to meet contemporary UI/UX standards.
+
+\section{Frontend Technologies}
+\begin{itemize}
+    \item \textbf{HTML5 \& CSS3:} Utilized for the core semantic structure. A completely bespoke "Night Owl" dark mode theme was engineered using custom CSS properties, ensuring high contrast and visual accessibility.
+    \item \textbf{Bootstrap 5:} Employed as the primary CSS framework for rapid, responsive grid layouts, card components, and flexbox utilities.
+    \item \textbf{JavaScript \& jQuery:} Used extensively for client-side scripting. jQuery powers the DataTables integration for advanced sorting and pagination, as well as the idle-session auto-logout security timer.
+    \item \textbf{AJAX (Asynchronous JavaScript and XML):} Implemented via jQuery to facilitate asynchronous POST requests (e.g., the Admission Form), allowing the UI to dynamically update without HTTP redirects.
+\end{itemize}
+
+\section{Backend Technologies}
+\begin{itemize}
+    \item \textbf{PHP 8:} The core server-side scripting language handling business logic, highly secure session management, role-based access control, and dynamic HTML rendering.
+    \item \textbf{MySQL:} The relational database management system utilized for persistent, structured data storage.
+    \item \textbf{Apache Server:} The local development server (provided via XAMPP) facilitating HTTP request/response cycles.
+\end{itemize}
+
+% ------------------------- CHAPTER 3: IMPLEMENTATION -------------------------
+\chapter{Implementation}
+
+\section{Database Architecture (ER Modeling)}
+The backend relies on a highly normalized MySQL database (\texttt{collegepr}) utilizing Foreign Keys with \texttt{ON DELETE CASCADE} constraints to prevent orphaned data.
+\begin{itemize}
+    \item \textbf{user:} The central authentication table storing both Admin and Student credentials.
+    \item \textbf{teacher:} Stores faculty profiles and metadata.
+    \item \textbf{course:} Links academic courses to specific faculty members (\texttt{teacher\_id} FK).
+    \item \textbf{enrollment:} A junction table establishing a many-to-many relationship by mapping Students to Courses.
+    \item \textbf{attendance:} A transactional table tracking daily Present/Absent status, linked directly to specific enrollments.
+\end{itemize}
+
+\section{Security Implementations}
+Robust security measures were woven into the implementation phase to protect sensitive academic data:
+\begin{itemize}
+    \item \textbf{Password Cryptography:} The system completely deprecates plaintext passwords. It utilizes PHP's native \texttt{password\_hash()} utilizing the BCrypt algorithm. A legacy fallback script was also implemented to seamlessly auto-upgrade older plaintext accounts to BCrypt upon their next login.
+    \item \textbf{SQL Injection Prevention:} All user inputs, especially within the authentication and admission flows, are sanitized using \texttt{mysqli\_real\_escape\_string()} prior to database execution.
+    \item \textbf{Session Hijacking Mitigation:} A custom jQuery script actively monitors client-side mouse and keyboard idle time, automatically destroying the PHP session and redirecting to the login page after 120 seconds of inactivity.
+\end{itemize}
+
+\section{AJAX \& Asynchronous Workflows}
+To elevate the user experience, the public-facing Admission form was detached from standard synchronous POST behavior. Using jQuery AJAX, the form data is serialized and transmitted to \texttt{data\_check.php}. The server returns a status payload, and jQuery dynamically renders a Bootstrap success/error alert in the DOM.
+
+% ------------------------- CHAPTER 4: SCREENSHOTS -------------------------
+\chapter{Screenshots}
+\textit{(Note: Replace the placeholder spaces below with actual screenshots of the system before final submission.)}
+
+\begin{figure}[h]
+    \centering
+    \vspace{5cm} % Placeholder space
+    \caption{Aether Academy Homepage featuring the AJAX Admission Form}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \vspace{5cm} % Placeholder space
+    \caption{Admin Dashboard - Real-time Statistics and Relational Management}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \vspace{5cm} % Placeholder space
+    \caption{Student Dashboard - Dynamic Grid Layout and Attendance Analytics}
+\end{figure}
+
+% ------------------------- CHAPTER 5: TESTING -------------------------
+\chapter{Testing}
+The application was subjected to rigorous testing phases to ensure stability, security, and responsive design integrity.
+
+\section{Functional Testing}
+\begin{itemize}
+    \item \textbf{Authentication \& Routing:} Verified that Student accounts cannot access Admin-exclusive routes (e.g., \texttt{adminhome.php}). Unauthenticated users attempting to access restricted URLs are aggressively redirected to the secure login gateway.
+    \item \textbf{Database Constraint Testing:} Verified that deleting a parent record (e.g., a Course) automatically triggers the cascading deletion of all related child records (Enrollments and Attendance), ensuring database normalization is maintained.
+\end{itemize}
+
+\section{UI/UX \& Compatibility Testing}
+\begin{itemize}
+    \item \textbf{Responsive Design:} Confirmed that the Bootstrap 5 grid and the custom collapsible sidebar degrade gracefully on mobile viewport sizes.
+    \item \textbf{Cross-Browser Visibility:} Resolved contrast issues where legacy Bootstrap classes (e.g., \texttt{.text-muted}) rendered text illegible against the custom dark slate background, ensuring strict adherence to WCAG contrast guidelines.
+\end{itemize}
+
+% ------------------------- CHAPTER 6: INDIVIDUAL CONTRIBUTION -------------------------
+\chapter{Individual Contribution}
+As a sole developer for this project, I, \textbf{Uday Praveen (PRN: 23030124196)}, was responsible for the complete end-to-end full-stack development of the Aether Academy platform. 
+
+\textbf{Key Responsibilities \& Contributions:}
+\begin{itemize}
+    \item \textbf{Backend Engineering:} Designed the normalized MySQL database schema, implemented the foreign key constraints, and wrote all PHP business logic for CRUD operations.
+    \item \textbf{Security Architecture:} Researched and integrated BCrypt password hashing, session management protocols, and SQL injection defenses.
+    \item \textbf{Frontend Development:} Built the responsive UI using HTML5, Bootstrap 5, and authored the bespoke CSS for the "Night Owl" dark mode theme.
+    \item \textbf{JavaScript/AJAX Implementation:} Engineered the asynchronous admission form workflows, integrated jQuery DataTables for large datasets, and developed the automated idle-session timeout security feature.
+\end{itemize}
+
+% ------------------------- CHAPTER 7: CONCLUSION -------------------------
+\chapter{Conclusion}
+The Aether Academy Student Management System successfully fulfills and exceeds the syllabus objectives by demonstrating a highly functional, secure, and aesthetically sophisticated web application. By deeply integrating the LAMP stack with modern AJAX paradigms and jQuery DOM manipulation, the system eliminates traditional administrative bottlenecks. The dual-role architecture ensures that administrators possess powerful management tools while students are granted unprecedented, real-time visibility into their academic trajectories. Ultimately, the project proves the efficacy of modern web technologies in transforming educational administration.
+
+% ------------------------- CHAPTER 8: FUTURE SCOPE -------------------------
+\chapter{Future Scope}
+While the current iteration of the system is feature-complete for its defined scope, its modular architecture allows for extensive future scalability:
+\begin{itemize}
+    \item \textbf{Payment Gateway Integration:} Implementing third-party APIs (such as Stripe or Razorpay) to allow students to securely pay semester tuition fees online.
+    \item \textbf{Automated SMTP Alerts:} Building a chron-job backend service that automatically emails parents/guardians if a student's attendance drops below the mandatory 75\% threshold.
+    \item \textbf{Examination \& Grading Module:} Expanding the relational schema to allow faculty to upload assignment scores and generate automated, downloadable PDF report cards.
+    \item \textbf{Mobile Application Port:} Exposing the PHP backend as a RESTful JSON API to facilitate the development of a companion mobile app using frameworks like React Native or Flutter.
+\end{itemize}
+
+% ------------------------- CHAPTER 9: REFERENCES -------------------------
+\chapter{References}
+\begin{itemize}
+    \item \textbf{PHP Documentation:} Official manual for PHP 8 syntax and \texttt{mysqli} functions. \url{https://www.php.net/docs.php}
+    \item \textbf{jQuery API Documentation:} Reference for asynchronous AJAX methods and DOM events. \url{https://api.jquery.com/}
+    \item \textbf{Bootstrap 5 Framework:} Component library and grid system guidelines. \url{https://getbootstrap.com/}
+    \item \textbf{DataTables Library:} Advanced table rendering and pagination algorithms. \url{https://datatables.net/}
+    \item \textbf{BCrypt Cryptography:} Best practices for secure password hashing in web applications.
+\end{itemize}
+
+\end{document}

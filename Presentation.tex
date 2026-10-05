@@ -1,181 +1,113 @@
 \documentclass[11pt, aspectratio=169]{beamer}
+
+% Theme selection
 \usetheme{Madrid}
-\usecolortheme{whale}
+\usecolortheme{beaver}
 
-% Aether Academy Dark Theme Colors for Beamer (Optional, but Madrid is a safe, professional default)
-\definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % Dark Blue
-\setbeamercolor{palette primary}{bg=UBCblue,fg=white}
-\setbeamercolor{palette secondary}{bg=UBCblue,fg=white}
-\setbeamercolor{palette tertiary}{bg=UBCblue,fg=white}
-\setbeamercolor{palette quaternary}{bg=UBCblue,fg=white}
-\setbeamercolor{structure}{fg=UBCblue}
-\setbeamercolor{item projected}{bg=UBCblue}
-\setbeamercolor{item}{fg=UBCblue}
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
 
-\title[Student Management System]{Aether Academy: Student Management System}
-\subtitle{Final Year Project Presentation}
+% Customizing colors for a modern look (Night Owl inspired)
+\definecolor{AetherDark}{RGB}{15, 23, 42}
+\definecolor{AetherCyan}{RGB}{6, 182, 212}
+\definecolor{AetherPurple}{RGB}{139, 92, 246}
+
+\setbeamercolor{structure}{fg=AetherCyan}
+\setbeamercolor{frametitle}{bg=AetherDark, fg=white}
+\setbeamercolor{palette primary}{bg=AetherDark, fg=white}
+\setbeamercolor{palette secondary}{bg=AetherPurple, fg=white}
+\setbeamercolor{title}{bg=AetherDark, fg=white}
+\setbeamercolor{item}{fg=AetherCyan}
+
+% Title Page Information
+\title[Aether Academy LMS]{\textbf{Aether Academy}}
+\subtitle{Student Management System}
 \author[Uday Praveen]{Uday Praveen \\ PRN: 23030124196}
-\institute[SICSR Pune]{Guided by: Prof. Shashank T. Gaikwad \\ Department of Computer Science \\ Symbiosis Institute of Computer Studies and Research (SICSR)}
-\date[\today]{\today}
+\institute[SICSR]{Symbiosis Institute of Computer Studies and Research (SICSR), Pune}
+\date{\today}
 
 \begin{document}
 
-% Slide 1: Title
+% SLIDE 1: Title
 \begin{frame}
     \titlepage
 \end{frame}
 
-% Slide 2: Table of Contents
-\begin{frame}{Agenda}
-    \tableofcontents
-\end{frame}
-
-% Slide 3: Problem Statement
-\section{Problem Statement}
-\begin{frame}{Problem Statement}
-    \textbf{The Challenge:}
+% SLIDE 2: Introduction & Objectives
+\begin{frame}{Introduction \& Objectives}
+    \textbf{Problem:} Traditional educational institutes rely on fragmented, paper-based records for managing student admissions, courses, and daily attendance. \\
+    \vspace{0.5cm}
+    \textbf{Solution:} Aether Academy is a centralized, digital Student Management System.
+    \vspace{0.3cm}
     \begin{itemize}
-        \item Traditional institutions rely on paper-based records or fragmented legacy software.
-        \item Admissions, course assignments, and daily attendance are tracked in silos.
-        \item This leads to data redundancy, inefficient administration, and lack of real-time insights for students.
+        \item Establishes a secure, dual-role (Admin \& Student) portal.
+        \item Automates the admission pipeline via asynchronous workflows.
+        \item Replaces manual attendance ledgers with real-time analytics.
     \end{itemize}
 \end{frame}
 
-% Slide 4: Objectives
-\section{Objectives}
-\begin{frame}{Objectives}
-    \textbf{What we set out to build:}
-    \begin{itemize}
-        \item A centralized, dual-role (Admin/Student) web portal.
-        \item Automate the admission pipeline using asynchronous requests.
-        \item Empower administrators with full CRUD control over Users, Faculty, and Courses.
-        \item Provide students with real-time analytics regarding their academic attendance.
-        \item Enforce enterprise-grade security (Password Hashing \& SQL Injection mitigation).
-    \end{itemize}
-\end{frame}
-
-% Slide 5: Technologies Used
-\section{Technologies Used}
+% SLIDE 3: Technologies Used
 \begin{frame}{Technologies Used}
-    Our architecture is built on the robust \textbf{LAMP Stack} combined with modern frontend libraries:
+    The system is built on the robust \textbf{LAMP Stack} combined with a modern UI framework:
     \vspace{0.5cm}
     \begin{columns}
         \column{0.5\textwidth}
         \textbf{Frontend:}
         \begin{itemize}
-            \item HTML5 \& CSS3 (Custom Dark Mode)
-            \item Bootstrap 5 (Responsive UI)
-            \item jQuery \& AJAX (Async Requests)
-            \item DataTables (Data sorting/searching)
+            \item \textbf{HTML5 \& CSS3:} Custom "Night Owl" Glassmorphism theme.
+            \item \textbf{Bootstrap 5:} Responsive, mobile-first grid layouts.
+            \item \textbf{JavaScript/jQuery:} Asynchronous form submission and dynamic UI logic.
         \end{itemize}
         
         \column{0.5\textwidth}
-        \textbf{Backend:}
+        \textbf{Backend \& Database:}
         \begin{itemize}
-            \item PHP 8 (Business Logic \& Sessions)
-            \item MySQL (Relational Database)
-            \item Apache (Local XAMPP Server)
-            \item BCrypt (Password Cryptography)
+            \item \textbf{PHP 8:} Server-side business logic and secure session management.
+            \item \textbf{MySQL:} Normalized relational database (Entities: User, Course, Enrollment, Attendance).
         \end{itemize}
     \end{columns}
 \end{frame}
 
-% Slide 6: Main Features
-\section{Main Features}
-\begin{frame}{Main Features}
-    \begin{itemize}
-        \item \textbf{Role-Based Authentication:} Strict routing preventing unauthorized access.
-        \item \textbf{Dynamic Dashboards:} Live SQL count queries rendering real-time statistics.
-        \item \textbf{Relational Academics:} Admins create courses, assign faculty, and enroll students.
-        \item \textbf{Attendance Tracking:} Daily attendance marking mapped to specific students and courses.
-        \item \textbf{Auto-Logout Security:} Idle-session termination after 90 seconds (accompanied by animated UI toasts).
-    \item \textbf{Intellectual Property:} Multi-layered codebase watermarking \& Easter Eggs.`n      \end{itemize}`n  \end{frame}`n`n  % Slide 7: System Workflow (ER Diagram Concept)
-\section{System Workflow}
-\begin{frame}{System Workflow \& Relational Schema}
-    Our database is heavily normalized using Foreign Keys and \texttt{ON DELETE CASCADE}:
+% SLIDE 4: System Architecture
+\begin{frame}{System Architecture \& Workflow}
+    The architecture is strictly role-based, ensuring data isolation:
     \vspace{0.3cm}
     \begin{itemize}
-        \item \textbf{User Table:} Stores credentials (Admin/Student).
-        \item \textbf{Teacher Table:} Stores faculty profiles.
-        \item \textbf{Course Table:} Links a subject to a specific \texttt{teacher\_id}.
-        \item \textbf{Enrollment Table:} A junction table mapping \texttt{student\_id} to \texttt{course\_id}.
-        \item \textbf{Attendance Table:} Tracks daily Present/Absent status linked to the Enrollment.
+        \item \textbf{Administrator Workflow:}
+        \begin{itemize}
+            \item Full CRUD capabilities (Create/Read/Update/Delete).
+            \item Manages pending admissions, faculty profiles, and course creation.
+            \item Responsible for marking daily attendance.
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Student Workflow:}
+        \begin{itemize}
+            \item Read-only access to academic data.
+            \item Dynamic dashboard displaying enrolled courses and calculated attendance percentages.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
-% Slide 8: Screenshots - Public
-\section{Screenshots}
-\begin{frame}{Screenshots: Public Portal}
-    \begin{center}
-        \textit{[Insert Screenshot of Aether Academy Homepage here]}
-        \vspace{1cm}
-        \\(Demonstrates Bootstrap 5, Custom CSS, and the AJAX Admission Form)
-    \end{center}
+% SLIDE 5: Key Features & Security
+\begin{frame}{Key Features \& Security Mechanisms}
+    \begin{itemize}
+        \item \textbf{Dynamic Dashboards:} Live SQL aggregate queries power clickable UI cards for instant navigation.
+        \item \textbf{Advanced Attendance Tracking:} Real-time percentage calculation with upsert database logic to prevent duplicate records.
+        \item \textbf{Password Cryptography:} All user passwords are encrypted using the BCrypt hashing algorithm (\texttt{password\_hash}).
+        \item \textbf{Auto-Logout Security:} A custom JavaScript timer terminates active PHP sessions after 90 seconds of idle inactivity, generating a custom UI toast alert.
+    \end{itemize}
 \end{frame}
 
-% Slide 9: Screenshots - Dashboard
-\begin{frame}{Screenshots: Secure Dashboards}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{center}
-            \textbf{Admin Dashboard} \\
-            \textit{[Insert Admin Dashboard Screenshot here]}
-        \end{center}
-        
-        \column{0.5\textwidth}
-        \begin{center}
-            \textbf{Student Dashboard} \\
-            \textit{[Insert Student Dashboard Screenshot here]}
-        \end{center}
-    \end{columns}
-\end{frame}
-
-% Slide 10: Demo
-\section{Demo / Implementation}
-\begin{frame}{Live Demonstration}
-    \begin{center}
-        \Huge \textbf{LIVE DEMO}
-        \vspace{0.5cm}
-        \normalsize
-        \\ \textit{Switching to the web browser to demonstrate:}
-        \\ 1. AJAX Form Submission
-        \\ 2. Admin Course Creation \& Enrollment
-        \\ 3. Student Attendance Analytics
-    \end{center}
-\end{frame}
-
-% Slide 11: Conclusion
-\section{Conclusion}
+% SLIDE 6: Conclusion
 \begin{frame}{Conclusion}
-    \begin{itemize}
-        \item Successfully replaced fragmented academic processes with a cohesive, digital solution.
-        \item Met all syllabus requirements through practical application of PHP, MySQL, jQuery, and AJAX.
-        \item Achieved a highly secure, responsive, and user-friendly interface.
-        \item The system is scalable and ready for real-world deployment.
-    \end{itemize}
-\end{frame}
-
-% Slide 12: Future Scope
-\section{Future Scope}
-\begin{frame}{Future Scope}
-    While the current system is feature-complete, future iterations could include:
-    \vspace{0.3cm}
-    \begin{itemize}
-        \item \textbf{Payment Gateway:} Integrating Stripe/Razorpay for online semester fee collection.
-        \item \textbf{Automated Alerts:} SMTP email integration to notify parents of attendance shortages.
-        \item \textbf{Examination Module:} Allowing faculty to upload grades and generate automated transcripts.
-        \item \textbf{Mobile App:} Porting the UI into a React Native mobile application.
-    \end{itemize}
-\end{frame}
-
-% Slide 13: Q&A
-\begin{frame}
+    \textbf{Project Summary:} \\
+    Aether Academy successfully demonstrates how modern web paradigms (LAMP stack + AJAX) can eliminate administrative bottlenecks. 
+    \vspace{0.5cm} \\
+    The platform provides a highly secure, aesthetically pleasing, and functionally robust ecosystem for managing core institutional operations. 
+    \vspace{0.5cm} \\
     \begin{center}
-        \Huge \textbf{Thank You!}
-        \vspace{1cm}
-        \Large \\ Any Questions?
+        \textit{Live demonstration of the codebase and application will follow.}
     \end{center}
 \end{frame}
 
 \end{document}
-

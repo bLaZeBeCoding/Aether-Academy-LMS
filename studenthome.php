@@ -45,11 +45,11 @@ $attendance_percentage = $total_classes > 0 ? round(($present_classes / $total_c
             transform: translateY(-5px);
         }
         .stat-icon {
-            font-size: 3rem;
+            font-size: 2.2rem;
             opacity: 0.8;
         }
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
         }
         .bg-gradient-primary { background: linear-gradient(45deg, #06b6d4, #3b82f6); }
@@ -65,9 +65,9 @@ $attendance_percentage = $total_classes > 0 ? round(($present_classes / $total_c
     <h1 class="mb-4">My Dashboard Overview</h1>
     <p class="text-muted mb-5">Welcome back, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.</p>
     
-    <div class="row g-4">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
         <!-- Total Courses Enrolled -->
-        <div class="col-md-6">
+        <div>
             <a href="student_courses.php" class="text-decoration-none">
                 <div class="stat-card bg-gradient-primary h-100">
                     <div class="d-flex justify-content-between align-items-center">
@@ -82,7 +82,7 @@ $attendance_percentage = $total_classes > 0 ? round(($present_classes / $total_c
         </div>
 
         <!-- Combined Attendance -->
-        <div class="col-md-6">
+        <div>
             <a href="student_attendance.php" class="text-decoration-none">
                 <div class="stat-card bg-gradient-success h-100">
                     <div class="d-flex justify-content-between align-items-center">
@@ -103,3 +103,4 @@ $attendance_percentage = $total_classes > 0 ? round(($present_classes / $total_c
     
 </body>
 </html>
+

@@ -33,11 +33,11 @@ $c_admit   = mysqli_fetch_array(mysqli_query($data, "SELECT COUNT(*) FROM admiss
             transform: translateY(-5px);
         }
         .stat-icon {
-            font-size: 3rem;
+            font-size: 2.2rem;
             opacity: 0.8;
         }
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
         }
         .bg-gradient-primary { background: linear-gradient(45deg, #06b6d4, #3b82f6); }
@@ -55,9 +55,9 @@ $c_admit   = mysqli_fetch_array(mysqli_query($data, "SELECT COUNT(*) FROM admiss
     <h1 class="mb-4">Dashboard Overview</h1>
     <p class="text-muted mb-5">Welcome back, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>. Here is the current status of Aether Academy.</p>
     
-    <div class="row g-4">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
         <!-- Total Students -->
-        <div class="col-md-6 col-lg-3">
+        <div>
             <a href="view_student.php" class="text-decoration-none">
                 <div class="stat-card bg-gradient-primary h-100">
                     <div class="d-flex justify-content-between align-items-center">
@@ -72,7 +72,7 @@ $c_admit   = mysqli_fetch_array(mysqli_query($data, "SELECT COUNT(*) FROM admiss
         </div>
 
         <!-- Total Faculty -->
-        <div class="col-md-6 col-lg-3">
+        <div>
             <a href="admin_view_teacher.php" class="text-decoration-none">
                 <div class="stat-card bg-gradient-purple h-100">
                     <div class="d-flex justify-content-between align-items-center">
@@ -87,7 +87,7 @@ $c_admit   = mysqli_fetch_array(mysqli_query($data, "SELECT COUNT(*) FROM admiss
         </div>
 
         <!-- Total Courses -->
-        <div class="col-md-6 col-lg-3">
+        <div>
             <a href="admin_view_course.php" class="text-decoration-none">
                 <div class="stat-card bg-gradient-success h-100">
                     <div class="d-flex justify-content-between align-items-center">
@@ -102,7 +102,7 @@ $c_admit   = mysqli_fetch_array(mysqli_query($data, "SELECT COUNT(*) FROM admiss
         </div>
 
         <!-- Pending Admissions -->
-        <div class="col-md-6 col-lg-3">
+        <div>
             <a href="admission.php" class="text-decoration-none">
                 <div class="stat-card bg-gradient-warning h-100">
                     <div class="d-flex justify-content-between align-items-center">
@@ -120,3 +120,5 @@ $c_admit   = mysqli_fetch_array(mysqli_query($data, "SELECT COUNT(*) FROM admiss
     
 </body>
 </html>
+
+

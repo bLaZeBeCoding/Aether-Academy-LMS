@@ -21,7 +21,7 @@
 
 % Title Page Information
 \title[Aether Academy LMS]{\textbf{Aether Academy}}
-\subtitle{Student Management System}
+\subtitle{Modern Student Management System}
 \author[Uday Praveen]{Uday Praveen \\ PRN: 23030124196}
 \institute[SICSR]{Symbiosis Institute of Computer Studies and Research (SICSR), Pune}
 \date{\today}
@@ -33,81 +33,140 @@
     \titlepage
 \end{frame}
 
-% SLIDE 2: Introduction & Objectives
-\begin{frame}{Introduction \& Objectives}
-    \textbf{Problem:} Traditional educational institutes rely on fragmented, paper-based records for managing student admissions, courses, and daily attendance. \\
-    \vspace{0.5cm}
-    \textbf{Solution:} Aether Academy is a centralized, digital Student Management System.
+% SLIDE 2: Introduction
+\begin{frame}{Introduction}
+    \textbf{What is Aether Academy?}
     \vspace{0.3cm}
     \begin{itemize}
-        \item Establishes a secure, dual-role (Admin \& Student) portal.
-        \item Automates the admission pipeline via asynchronous workflows.
-        \item Replaces manual attendance ledgers with real-time analytics.
+        \item A centralized, dual-role (Admin \& Student) digital platform.
+        \item Replaces legacy, paper-based institutional record-keeping.
+        \item Provides real-time insights into student admissions, course enrollments, and daily attendance.
+        \item Engineered with modern, asynchronous web development paradigms.
     \end{itemize}
 \end{frame}
 
-% SLIDE 3: Technologies Used
-\begin{frame}{Technologies Used}
-    The system is built on the robust \textbf{LAMP Stack} combined with a modern UI framework:
-    \vspace{0.5cm}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \textbf{Frontend:}
-        \begin{itemize}
-            \item \textbf{HTML5 \& CSS3:} Custom "Night Owl" Glassmorphism theme.
-            \item \textbf{Bootstrap 5:} Responsive, mobile-first grid layouts.
-            \item \textbf{JavaScript/jQuery:} Asynchronous form submission and dynamic UI logic.
-        \end{itemize}
-        
-        \column{0.5\textwidth}
-        \textbf{Backend \& Database:}
-        \begin{itemize}
-            \item \textbf{PHP 8:} Server-side business logic and secure session management.
-            \item \textbf{MySQL:} Normalized relational database (Entities: User, Course, Enrollment, Attendance).
-        \end{itemize}
-    \end{columns}
-\end{frame}
-
-% SLIDE 4: System Architecture
-\begin{frame}{System Architecture \& Workflow}
-    The architecture is strictly role-based, ensuring data isolation:
+% SLIDE 3: Problem Statement
+\begin{frame}{Problem Statement}
+    \textbf{Challenges with Traditional Administration:}
     \vspace{0.3cm}
     \begin{itemize}
-        \item \textbf{Administrator Workflow:}
-        \begin{itemize}
-            \item Full CRUD capabilities (Create/Read/Update/Delete).
-            \item Manages pending admissions, faculty profiles, and course creation.
-            \item Responsible for marking daily attendance.
-        \end{itemize}
-        \vspace{0.2cm}
-        \item \textbf{Student Workflow:}
-        \begin{itemize}
-            \item Read-only access to academic data.
-            \item Dynamic dashboard displaying enrolled courses and calculated attendance percentages.
-        \end{itemize}
+        \item \textbf{Data Fragmentation:} Student records are scattered across manual ledgers and isolated spreadsheets.
+        \item \textbf{Attendance Opacity:} Students lack real-time visibility into their own attendance percentages, risking default.
+        \item \textbf{Administrative Bottlenecks:} Manual processing of admission forms is time-consuming and error-prone.
+        \item \textbf{Security Vulnerabilities:} Legacy systems often lack proper session management and cryptography.
     \end{itemize}
 \end{frame}
 
-% SLIDE 5: Key Features & Security
-\begin{frame}{Key Features \& Security Mechanisms}
+% SLIDE 4: Objectives & Scope
+\begin{frame}{Objectives \& Scope}
+    \textbf{Core Objectives:}
     \begin{itemize}
-        \item \textbf{Dynamic Dashboards:} Live SQL aggregate queries power clickable UI cards for instant navigation.
-        \item \textbf{Advanced Attendance Tracking:} Real-time percentage calculation with upsert database logic to prevent duplicate records.
-        \item \textbf{Password Cryptography:} All user passwords are encrypted using the BCrypt hashing algorithm (\texttt{password\_hash}).
-        \item \textbf{Auto-Logout Security:} A custom JavaScript timer terminates active PHP sessions after 90 seconds of idle inactivity, generating a custom UI toast alert.
+        \item Automate the admission pipeline using AJAX asynchronous workflows.
+        \item Separate business logic into distinct Administrator and Student portals.
+        \item Provide automated, algorithmic attendance calculation.
+    \end{itemize}
+    \vspace{0.3cm}
+    \textbf{Project Scope:}
+    \begin{itemize}
+        \item End-to-end management of Users, Faculty, Courses, and Attendance tracking within a singular ecosystem.
     \end{itemize}
 \end{frame}
 
-% SLIDE 6: Conclusion
-\begin{frame}{Conclusion}
-    \textbf{Project Summary:} \\
-    Aether Academy successfully demonstrates how modern web paradigms (LAMP stack + AJAX) can eliminate administrative bottlenecks. 
-    \vspace{0.5cm} \\
-    The platform provides a highly secure, aesthetically pleasing, and functionally robust ecosystem for managing core institutional operations. 
-    \vspace{0.5cm} \\
-    \begin{center}
-        \textit{Live demonstration of the codebase and application will follow.}
-    \end{center}
+% SLIDE 5: Technologies Used (Frontend)
+\begin{frame}{Technologies Used (Frontend)}
+    The UI is designed around a bespoke "Night Owl" aesthetic utilizing Glassmorphism.
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{HTML5 \& CSS3:} Semantic markup combined with deep CSS overrides for slate/neon color gradients.
+        \item \textbf{Bootstrap 5:} Mobile-first, responsive grid framework powering the dashboard cards.
+        \item \textbf{JavaScript (ES6):} Client-side DOM manipulation and idle-session detection logic.
+        \item \textbf{jQuery \& AJAX:} Facilitates asynchronous HTTP POST requests (Admission Forms) without page reloads.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 6: Technologies Used (Backend)
+\begin{frame}{Technologies Used (Backend)}
+    The system architecture relies on the robust LAMP stack configuration.
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{PHP 8:} Handles core server-side business logic, API endpoints, and dynamic HTML rendering.
+        \item \textbf{MySQLi:} Procedural PHP extension utilized for all database transactions.
+        \item \textbf{MySQL Database:} Relational Database Management System (RDBMS).
+        \item \textbf{Apache:} Local web server environment provided via XAMPP.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 7: Database Architecture
+\begin{frame}{Database Architecture}
+    The backend utilizes a heavily normalized relational database schema (\texttt{collegepr}):
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{user:} Central authentication node (Stores BCrypt hashes).
+        \item \textbf{teacher:} Faculty metadata node.
+        \item \textbf{course:} Maps academic subjects to a specific \texttt{teacher\_id} via Foreign Key.
+        \item \textbf{enrollment:} A junction table mapping Students (M) to Courses (N).
+        \item \textbf{attendance:} Transactional table utilizing \texttt{UNIQUE} constraints to prevent duplicate daily records.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 8: Administrator Features
+\begin{frame}{Administrator Features}
+    The Admin Portal provides full CRUD (Create, Read, Update, Delete) superiority:
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Admissions Control:} Approve or reject incoming student applications.
+        \item \textbf{Academic Structuring:} Generate new courses and assign faculty.
+        \item \textbf{Enrollment Engine:} Enroll registered students into specific curriculums.
+        \item \textbf{Daily Attendance:} Fast, drop-down driven interface to mark Present/Absent status across entire classes dynamically.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 9: Student Features
+\begin{frame}{Student Features}
+    The Student Portal focuses on read-only analytics and aesthetic visibility:
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Curriculum Grid:} Dynamically rendered, color-coded grid cards displaying all enrolled courses.
+        \item \textbf{Attendance Analytics:} Algorithmic calculation dividing \textit{Classes Attended} by \textit{Total Classes Held} to generate real-time percentages.
+        \item \textbf{Responsive UI:} A collapsible sidebar and dynamic "Back to Dashboard" routing for seamless navigation.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 10: Security Architecture
+\begin{frame}{Security Architecture}
+    Enterprise-grade security mechanisms actively defend the platform:
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Cryptography:} All plaintext passwords are automatically encrypted via PHP's \texttt{password\_hash()} using the BCrypt algorithm.
+        \item \textbf{SQL Injection Defense:} Implementation of \texttt{mysqli\_real\_escape\_string()} on all user inputs.
+        \item \textbf{Idle-Session Termination:} A custom JavaScript listener monitors mouse/keyboard activity. After 90 seconds of inactivity, the session is destroyed and a UI toast alert is generated.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 11: Intellectual Property Watermarking
+\begin{frame}{Intellectual Property Watermarking}
+    A multi-layered authorship verification system was engineered to protect the codebase:
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{SQL Metadata Injection:} An immutable, hidden `\_system\_authorship` database table is bundled with the SQL dump.
+        \item \textbf{HTTP Headers:} Custom X-Author PHP network headers.
+        \item \textbf{Terminal Signatures:} Global console logs outputting color-coded developer badges.
+        \item \textbf{Easter Egg Trigger:} Bypassing the authentication gateway via a specific keyword triggers a hidden UI authorship modal.
+    \end{itemize}
+\end{frame}
+
+% SLIDE 12: Conclusion & Future Scope
+\begin{frame}{Conclusion \& Future Scope}
+    \textbf{Conclusion:}
+    Aether Academy successfully demonstrates the efficacy of utilizing modern web technologies (PHP, AJAX, CSS Grid) to resolve traditional administrative bottlenecks, proving to be a highly secure and functional platform.
+    
+    \vspace{0.3cm}
+    \textbf{Future Scope:}
+    \begin{itemize}
+        \item Integration of a Payment Gateway (Stripe/Razorpay) for tuition processing.
+        \item Automated SMTP email chron-jobs for low-attendance warnings.
+        \item Exposing the PHP backend as a RESTful JSON API for a future mobile application port.
+    \end{itemize}
 \end{frame}
 
 \end{document}

@@ -137,29 +137,37 @@ Robust security measures were woven into the implementation phase to protect sen
     \item \textbf{Password Cryptography:} The system completely deprecates plaintext passwords. It utilizes PHP's native \texttt{password\_hash()} utilizing the BCrypt algorithm. A legacy fallback script was also implemented to seamlessly auto-upgrade older plaintext accounts to BCrypt upon their next login.
     \item \textbf{SQL Injection Prevention:} All user inputs, especially within the authentication and admission flows, are sanitized using \texttt{mysqli\_real\_escape\_string()} prior to database execution.
     \item \textbf{Session Hijacking Mitigation:} A custom jQuery script actively monitors client-side mouse and keyboard idle time, automatically destroying the PHP session and redirecting to the login page after 90 seconds of inactivity, dynamically triggering an animated CSS toast notification.
-\item \textbf{Intellectual Property Protection:} A multi-layered authorship verification system (including an Easter Egg UI trigger, hidden console scripts, and SQL metadata) was engineered to protect the project architecture.`n  \end{itemize}`n`n  \section{AJAX \& Asynchronous Workflows}
+    \item \textbf{Intellectual Property Protection:} A multi-layered authorship verification system (including an Easter Egg UI trigger, hidden console scripts, and SQL metadata) was engineered to protect the project architecture.
+\end{itemize}
+
+\section{AJAX \& Asynchronous Workflows}
 To elevate the user experience, the public-facing Admission form was detached from standard synchronous POST behavior. Using jQuery AJAX, the form data is serialized and transmitted to \texttt{data\_check.php}. The server returns a status payload, and jQuery dynamically renders a Bootstrap success/error alert in the DOM.
 
 % ------------------------- CHAPTER 4: SCREENSHOTS -------------------------
 \chapter{Screenshots}
-\textit{(Note: Replace the placeholder spaces below with actual screenshots of the system before final submission.)}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
-    \vspace{5cm} % Placeholder space
-    \caption{Aether Academy Homepage featuring the AJAX Admission Form}
+    \includegraphics[width=0.85\textwidth]{screenshots/admin_dashboard.png}
+    \caption{Admin Dashboard -- Real-time Statistics, CSS Grid Cards, and Relational Navigation}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
-    \vspace{5cm} % Placeholder space
-    \caption{Admin Dashboard - Real-time Statistics and Relational Management}
+    \includegraphics[width=0.85\textwidth]{screenshots/student_attendance.png}
+    \caption{Student Portal -- Granular Course Attendance Analytics and Percentage Calculation}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
-    \vspace{5cm} % Placeholder space
-    \caption{Student Dashboard - Dynamic Grid Layout and Attendance Analytics}
+    \includegraphics[width=0.75\textwidth]{screenshots/login.png}
+    \caption{Authentication Gateway -- Security Timeout Toast and Glassmorphism Interface}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{screenshots/easter_egg.png}
+    \caption{Architectural Verification -- Developer Signature Easter Egg Modal}
 \end{figure}
 
 % ------------------------- CHAPTER 5: TESTING -------------------------

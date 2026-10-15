@@ -62,28 +62,53 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Attendance | Aether Academy</title>
     <?php include 'student_css.php'; ?>
-    <style>
         .attendance-table {
             border: 1px solid #334155;
-            background-color: #1e293b;
+            background-color: #111827;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
         }
         .attendance-table thead th {
-            background-color: #0f172a !important;
-            color: #38bdf8 !important; /* light blue for headers */
+            background-color: #030712 !important;
+            color: var(--accent-orange) !important;
             text-align: center;
             border-bottom: 2px solid #334155;
-            padding: 15px;
+            padding: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
         }
         .attendance-table td {
             text-align: center;
             vertical-align: middle;
-            border-color: #334155;
+            border-color: #1f2937;
             color: #f8fafc;
-            padding: 15px;
+            padding: 16px;
+            background-color: #111827;
+            font-size: 0.95rem;
         }
         .attendance-table td:first-child {
             text-align: left;
             font-weight: 600;
+        }
+
+        /* Light Mode Table (Eliminates out-of-place blue, matching warm orange institutional theme) */
+        [data-theme="light"] .attendance-table {
+            border: 1px solid #e2e8f0 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+        }
+        [data-theme="light"] .attendance-table thead th {
+            background-color: #f8fafc !important;
+            color: #ea580c !important; /* University Orange, NOT blue */
+            border-bottom: 2px solid #fed7aa !important;
+            border-top: none !important;
+        }
+        [data-theme="light"] .attendance-table td {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #e2e8f0 !important;
         }
         .text-danger-custom {
             color: #ef4444 !important;
@@ -131,9 +156,15 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
             border-color: #a7f3d0 !important;
             color: #059669 !important;
         }
+        .attendance-title-wrapper {
+            padding-top: 28px;
+            margin-bottom: 28px;
+        }
         .attendance-title {
             color: var(--accent-orange) !important;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+            font-size: 1.85rem;
+            font-weight: 800;
         }
     </style>
 </head>
@@ -145,10 +176,12 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
     
     <div class="card shadow-sm border-0 bg-transparent">
         <div class="card-body p-0">
-            <!-- Student Header matching screenshot -->
-            <h2 class="mb-4 text-center fw-bold text-uppercase attendance-title">
-                <i class="fas fa-clipboard-check me-2"></i><?php echo htmlspecialchars($username); ?> - ATTENDANCE RECORD
-            </h2>
+            <!-- Student Header with Generous Top Spacing -->
+            <div class="attendance-title-wrapper text-center">
+                <h2 class="attendance-title text-uppercase m-0">
+                    <i class="fas fa-clipboard-check me-2"></i><?php echo htmlspecialchars($username); ?> &ndash; ATTENDANCE RECORD
+                </h2>
+            </div>
             
             <?php if(count($course_stats) > 0): ?>
             <div class="table-responsive">

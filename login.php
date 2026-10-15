@@ -46,7 +46,7 @@ if(isset($_SESSION['loginMessage'])) {
     <title>Login | Aether Academy</title>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@ if(isset($_SESSION['loginMessage'])) {
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
             background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), url('school1.jpg') no-repeat center center/cover;
             height: 100vh;
             display: flex;
@@ -177,7 +177,7 @@ if(isset($_SESSION['loginMessage'])) {
             color: #d97706;
         }
         [data-theme="light"] body {
-            background: linear-gradient(rgba(248, 250, 252, 0.85), rgba(241, 245, 249, 0.95)), url('school1.jpg') no-repeat center center/cover !important;
+            background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.7)), url('school1.jpg') no-repeat center center/cover !important;
             color: #0f172a !important;
         }
         [data-theme="light"] .login-card {
@@ -211,6 +211,43 @@ if(isset($_SESSION['loginMessage'])) {
         }
         [data-theme="light"] .back-link:hover {
             color: #0284c7 !important;
+        }
+
+    
+        [data-theme="light"] .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #ea580c !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        }
+        [data-theme="light"] .theme-toggle-btn:hover {
+            border-color: #ea580c !important;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+            color: #c2410c !important;
+        }
+        [data-theme="light"] .btn-neon {
+            background: linear-gradient(135deg, #f97316, #ea580c) !important;
+            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.35) !important;
+        }
+        [data-theme="light"] .btn-neon:hover {
+            background: linear-gradient(135deg, #ea580c, #c2410c) !important;
+        }
+        [data-theme="light"] .input-group-text {
+            background-color: #f8fafc !important;
+            border: 1px solid #cbd5e1 !important;
+            border-right: none !important;
+            color: #ea580c !important;
+        }
+        [data-theme="light"] .form-control:focus {
+            border-color: #f97316 !important;
+            box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.2) !important;
+        }
+        [data-theme="light"] .back-link:hover {
+            color: #ea580c !important;
+        }
+        [data-theme="light"] .login-card .logo-area img {
+            border-color: #f97316 !important;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.3) !important;
         }
 
     </style>
@@ -274,7 +311,7 @@ if(isset($_SESSION['loginMessage'])) {
 
     <div class="login-card">
         <div class="logo-area">
-            <img src="logo.jpg" alt="Aether Academy Logo">
+            <img src="logo.png" alt="Aether Academy Logo">
             <h2>Welcome Back</h2>
             <p>Login to your account (Admin or Student)</p>
         </div>

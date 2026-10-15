@@ -94,17 +94,46 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
             font-weight: 700;
         }
         .totals-box {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid #334155;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-top: none;
-            padding: 20px;
-            text-align: center;
-            font-weight: 600;
-            color: #f8fafc;
-            font-size: 1.1rem;
+            padding: 24px 30px;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            color: var(--text-heading) !important;
+            font-size: 1rem;
+            box-shadow: var(--shadow-card);
         }
-        .totals-box span {
-            color: #38bdf8;
+        .stat-metric-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(249, 115, 22, 0.08);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            border-radius: 50px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin: 4px 6px;
+        }
+        [data-theme="light"] .stat-metric-pill {
+            background: #fff7ed;
+            border-color: #fdba74;
+            color: #ea580c;
+        }
+        .stat-metric-success {
+            background: rgba(16, 185, 129, 0.1) !important;
+            border-color: rgba(16, 185, 129, 0.3) !important;
+            color: #10b981 !important;
+        }
+        [data-theme="light"] .stat-metric-success {
+            background: #ecfdf5 !important;
+            border-color: #a7f3d0 !important;
+            color: #059669 !important;
+        }
+        .attendance-title {
+            color: var(--accent-orange) !important;
+            letter-spacing: -0.02em;
         }
     </style>
 </head>
@@ -117,8 +146,8 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
     <div class="card shadow-sm border-0 bg-transparent">
         <div class="card-body p-0">
             <!-- Student Header matching screenshot -->
-            <h2 class="mb-4 text-center fw-bold text-uppercase" style="color: #38bdf8 !important; letter-spacing: 1px;">
-                <?php echo htmlspecialchars($username); ?> - ATTENDANCE RECORD
+            <h2 class="mb-4 text-center fw-bold text-uppercase attendance-title">
+                <i class="fas fa-clipboard-check me-2"></i><?php echo htmlspecialchars($username); ?> - ATTENDANCE RECORD
             </h2>
             
             <?php if(count($course_stats) > 0): ?>
@@ -139,28 +168,34 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
                             $color_class = $stat['percentage'] < 75 ? 'text-danger-custom' : 'text-success-custom';
                         ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($stat['name']); ?></td>
+                            <td class="fw-bold"><?php echo htmlspecialchars($stat['name']); ?></td>
                             <td><?php echo $stat['total']; ?></td>
                             <td><?php echo $stat['total']; ?></td>
                             <td><?php echo $stat['present']; ?></td>
-                            <td class="<?php echo $color_class; ?>"><?php echo number_format($stat['percentage'], 2); ?>%</td>
+                            <td class="<?php echo $color_class; ?> fs-6"><?php echo number_format($stat['percentage'], 2); ?>%</td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
                 
-                <!-- Totals Footer matching screenshot -->
-                <div class="totals-box">
-                    <div class="mb-2">
-                        Total Session: <span><?php echo $total_sessions_all; ?></span><br>
-                        Total Attended Session: <span><?php echo $total_attended_all; ?></span>
+                <!-- High Contrast Totals Footer -->
+                <div class="totals-box text-center">
+                    <div class="d-flex flex-wrap justify-content-center align-items-center mb-3">
+                        <div class="stat-metric-pill">
+                            <i class="fas fa-calendar-alt"></i> Total Sessions: <strong><?php echo $total_sessions_all; ?></strong>
+                        </div>
+                        <div class="stat-metric-pill stat-metric-success">
+                            <i class="fas fa-check-circle"></i> Attended Sessions: <strong><?php echo $total_attended_all; ?></strong>
+                        </div>
                     </div>
-                    <hr style="border-color: #334155; width: 50%; margin: 15px auto;">
-                    <div class="mb-2">
-                        Total Percentage: <span><?php echo number_format($total_percentage, 2); ?>%</span>
-                    </div>
-                    <div>
-                        Average Percentage: <span><?php echo number_format($average_percentage, 2); ?>%</span>
+                    
+                    <div class="d-flex flex-wrap justify-content-center align-items-center">
+                        <div class="stat-metric-pill stat-metric-success fs-6 px-4 py-2">
+                            Overall Attendance: <strong><?php echo number_format($total_percentage, 2); ?>%</strong>
+                        </div>
+                        <div class="stat-metric-pill fs-6 px-4 py-2">
+                            Class Average: <strong><?php echo number_format($average_percentage, 2); ?>%</strong>
+                        </div>
                     </div>
                 </div>
             </div>

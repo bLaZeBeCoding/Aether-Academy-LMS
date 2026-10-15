@@ -7,7 +7,7 @@ if(localStorage.getItem('sidebarState') === 'collapsed') { document.body.classLi
             <i class="fas fa-bars fs-4"></i>
         </button>
         <a href="index.php">
-            <img src="logo.jpg" alt="Logo" width="40" height="40" class="me-3 rounded-circle" style="border: 2px solid #06b6d4;">
+            <img src="logo.png" alt="Logo" width="40" height="40" class="me-3 rounded-circle" style="border: 2px solid #f97316;">
         </a>
         <a class="dashhead" href="studenthome.php">Student Dashboard</a>
     </div>

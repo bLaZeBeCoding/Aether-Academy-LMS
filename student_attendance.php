@@ -62,6 +62,7 @@ $average_percentage = $course_count > 0 ? round($sum_percentages / $course_count
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Attendance | Aether Academy</title>
     <?php include 'student_css.php'; ?>
+    <style>
         .attendance-table {
             border: 1px solid #334155;
             background-color: #111827;

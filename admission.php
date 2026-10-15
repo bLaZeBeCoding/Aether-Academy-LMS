@@ -17,7 +17,7 @@ elseif($_SESSION['usertype']=='student')
 
 $data = mysqli_connect("localhost","root","","collegepr",3307);
 
-$sql = "SELECT * FROM admission";
+$sql = "SELECT * FROM admission ORDER BY created_at DESC";
 
 $result = mysqli_query($data,$sql);
 
@@ -50,10 +50,14 @@ $result = mysqli_query($data,$sql);
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Message</th>
+                            <th style="min-width: 180px;">Submitted At</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while($info=$result->fetch_assoc()) { ?>
+                        <?php while($info=$result->fetch_assoc()) { 
+                            $timestamp = !empty($info['created_at']) ? strtotime($info['created_at']) : 0;
+                            $formatted_date = !empty($info['created_at']) ? date('M d, Y - h:i A', $timestamp) : 'N/A';
+                        ?>
                         <tr>
                             <td class="fw-bold">
                                 <?php echo htmlspecialchars($info['name']); ?>
@@ -67,6 +71,11 @@ $result = mysqli_query($data,$sql);
                             <td>
                                 <?php echo htmlspecialchars($info['message']); ?>
                             </td>
+                            <td data-order="<?php echo $timestamp; ?>">
+                                <span class="badge py-2 px-3 rounded-pill" style="background: rgba(249,115,22,0.12); color: var(--accent-orange); border: 1px solid rgba(249,115,22,0.3); font-size: 0.82rem; font-weight: 600;">
+                                    <i class="fas fa-clock me-1"></i><?php echo $formatted_date; ?>
+                                </span>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -79,6 +88,7 @@ $result = mysqli_query($data,$sql);
 <script>
     $(document).ready(function() {
         $('#admissionTable').DataTable({
+            "order": [[4, "desc"]],
             "pageLength": 10,
             "language": {
                 "search": "Quick Search:"

@@ -74,5 +74,5 @@ $(document).ready(function() {
 </script>
 
 <script>
-  console.log('%c Aether Academy %c Developed by Uday Praveen (SICSR Pune) ', 'background: #06b6d4; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #8b5cf6; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
+  console.log('%c Aether Academy %c Developed by Uday Praveen ', 'background: #ea580c; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #0f172a; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
 </script>

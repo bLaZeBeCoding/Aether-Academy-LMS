@@ -1,9 +1,8 @@
-<?php header("X-Author: Uday Praveen (PRN: 23030124196) - SICSR Pune"); ?>
+<?php header("X-Author: Uday Praveen (PRN: 23030124196)"); ?>
 <!--
 ================================================================
 * Aether Academy - Student Management System
 * Architect & Lead Developer: Uday Praveen (PRN: 23030124196)
-* Institution: SICSR Pune
 * Unauthorized reproduction or uncredited use is strictly prohibited.
 ================================================================
 -->
@@ -270,7 +269,7 @@ if(isset($_SESSION['loginMessage'])) {
             <h2 style="color: #06b6d4; font-weight: bold; text-shadow: 0 0 10px #06b6d4; letter-spacing: 2px;">AETHER ACADEMY</h2>
             <p class="text-white mt-3 fs-5">Architected & Developed by</p>
             <h3 style="color: #8b5cf6; font-weight: bold; font-size: 2.2rem; margin: 15px 0;">Uday Praveen</h3>
-            <p class="text-muted" style="font-size: 1.1rem;">PRN: 23030124196 | SICSR Pune</p>
+            <p class="text-muted" style="font-size: 1.1rem;">PRN: 23030124196 | Aether Academy</p>
             <button type="button" class="btn btn-neon mt-4 px-5 py-2" onclick="document.getElementById('easterEggModal').style.display='none'">Acknowledge</button>
           </div>
         </div>
@@ -324,7 +323,7 @@ if(isset($_SESSION['loginMessage'])) {
 
         <form action="login_check.php" method="POST">
             <div class="mb-4">
-                <label class="form-label fw-bold text-white">Username</label>
+                <label class="form-label fw-bold">Username</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                     <input type="text" class="form-control" name="username" placeholder="Enter your username" required autofocus>
@@ -332,7 +331,7 @@ if(isset($_SESSION['loginMessage'])) {
             </div>
 
             <div class="mb-5">
-                <label class="form-label fw-bold text-white">Password</label>
+                <label class="form-label fw-bold">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
@@ -355,7 +354,7 @@ if(isset($_SESSION['loginMessage'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  console.log('%c Aether Academy %c Developed by Uday Praveen (SICSR Pune) ', 'background: #06b6d4; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #8b5cf6; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
+  console.log('%c Aether Academy %c Developed by Uday Praveen ', 'background: #ea580c; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #0f172a; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
 </script>
 
 <script>

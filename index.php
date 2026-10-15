@@ -1,4 +1,4 @@
-<?php header("X-Author: Uday Praveen (PRN: 23030124196) - SICSR Pune"); ?>
+<?php header("X-Author: Uday Praveen (PRN: 23030124196)"); ?>
 <?php
 
 error_reporting(0);
@@ -25,7 +25,6 @@ $result = mysqli_query($data,$sql);
 ================================================================
 * Aether Academy - Student Management System
 * Architect & Lead Developer: Uday Praveen (PRN: 23030124196)
-* Institution: SICSR Pune
 * Unauthorized reproduction or uncredited use is strictly prohibited.
 ================================================================
 -->
@@ -40,7 +39,7 @@ $result = mysqli_query($data,$sql);
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aether Academy | Modern LMS & Student Management</title>
+    <title>Aether Academy | Academic LMS & Student Management Portal</title>
     
     <!-- Google Fonts: Technical Pro & Academic Standard -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -65,6 +64,8 @@ $result = mysqli_query($data,$sql);
             --signout-red: #dc2626;
             --pillar-card-bg: rgba(255, 255, 255, 0.03);
             --pillar-border: #1f2937;
+            --footer-bg: #030712;
+            --footer-border: #1e293b;
         }
 
         [data-theme="light"] {
@@ -81,6 +82,12 @@ $result = mysqli_query($data,$sql);
             --signout-red: #dc2626;
             --pillar-card-bg: #ffffff;
             --pillar-border: #fed7aa;
+            --footer-bg: #ffffff;
+            --footer-border: #e2e8f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -96,6 +103,58 @@ $result = mysqli_query($data,$sql);
             color: var(--text-sub) !important;
             transition: background-color 0.25s ease, color 0.25s ease;
             overflow-x: hidden;
+        }
+
+        /* High-Contrast Universal Typography (Fixes unreadable dark mode) */
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+            color: var(--text-heading) !important;
+            font-weight: 700;
+        }
+
+        p, .lead, .card-text {
+            color: var(--text-sub) !important;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .small, small {
+            color: var(--text-muted) !important;
+        }
+
+        [data-theme="dark"] .text-muted,
+        [data-theme="dark"] .small,
+        [data-theme="dark"] small {
+            color: #94a3b8 !important;
+        }
+
+        [data-theme="dark"] p,
+        [data-theme="dark"] .card-text,
+        [data-theme="dark"] .about-text {
+            color: #cbd5e1 !important;
+        }
+
+        [data-theme="dark"] h1,
+        [data-theme="dark"] h2,
+        [data-theme="dark"] h3,
+        [data-theme="dark"] h4,
+        [data-theme="dark"] h5,
+        [data-theme="dark"] h6 {
+            color: #f8fafc !important;
+        }
+
+        [data-theme="light"] .text-muted,
+        [data-theme="light"] .small,
+        [data-theme="light"] small {
+            color: #64748b !important;
+        }
+
+        [data-theme="light"] p,
+        [data-theme="light"] .card-text,
+        [data-theme="light"] .about-text {
+            color: #334155 !important;
         }
 
         /* Navbar Styling */
@@ -156,7 +215,7 @@ $result = mysqli_query($data,$sql);
             color: #ea580c;
         }
 
-        /* Sign Out Pill (Matching Symbiosis Image 2 & 5) */
+        /* Sign Out Pill */
         .btn-signout {
             background-color: var(--signout-red) !important;
             color: #ffffff !important;
@@ -193,7 +252,7 @@ $result = mysqli_query($data,$sql);
             transform: translateY(-1px);
         }
 
-        /* HERO SECTION (Modeled on Symbiosis LMS Image 2) */
+        /* HERO SECTION */
         .hero-section {
             padding: 130px 0 80px;
             position: relative;
@@ -208,18 +267,18 @@ $result = mysqli_query($data,$sql);
         .hero-subheading {
             font-size: 0.85rem;
             letter-spacing: 0.12em;
-            color: var(--accent-orange);
+            color: var(--accent-orange) !important;
             font-weight: 800;
         }
         .hero-title {
             font-size: 3.5rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            color: var(--text-heading);
+            color: var(--text-heading) !important;
             line-height: 1.1;
         }
         .hero-title .accent-text {
-            color: var(--accent-orange);
+            color: var(--accent-orange) !important;
             display: inline-block;
         }
 
@@ -242,8 +301,11 @@ $result = mysqli_query($data,$sql);
         }
         .pillar-card h5 {
             font-size: 1.05rem;
-            color: var(--text-heading);
+            color: var(--text-heading) !important;
             letter-spacing: 0.02em;
+        }
+        .pillar-card p {
+            color: var(--text-muted) !important;
         }
 
         .hero-divider {
@@ -254,7 +316,7 @@ $result = mysqli_query($data,$sql);
         }
 
         .hero-tagline {
-            color: var(--text-sub);
+            color: var(--text-sub) !important;
             font-size: 1.15rem;
             font-weight: 600;
         }
@@ -316,26 +378,101 @@ $result = mysqli_query($data,$sql);
             color: var(--accent-orange);
         }
 
-        /* CARDS & CONTENT SECTIONS */
+        /* GENERAL CARDS */
         .card {
             background-color: var(--card-bg) !important;
             border: 1px solid var(--card-border) !important;
             border-radius: 14px;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            overflow: hidden;
         }
         .card:hover {
             transform: translateY(-4px);
             border-color: var(--accent-orange) !important;
             box-shadow: 0 12px 30px rgba(0,0,0,0.12) !important;
         }
-        .card h3 {
+        .card h3, .card h4, .card h5, .card-title {
             color: var(--text-heading) !important;
             font-weight: 700;
         }
-        .card p {
-            color: var(--text-muted) !important;
+        .card p, .card-text {
+            color: var(--text-sub) !important;
             font-size: 0.95rem;
+        }
+
+        /* FACULTY CARDS & PHOTO ALIGNMENT (Fixes cut-off heads) */
+        .faculty-card {
+            background-color: var(--card-bg) !important;
+            border: 1px solid var(--card-border) !important;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .faculty-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-orange) !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2) !important;
+        }
+        .faculty-img-wrapper {
+            width: 100%;
+            height: 280px;
+            background-color: #030712;
+            overflow: hidden;
+            position: relative;
+        }
+        [data-theme="light"] .faculty-img-wrapper {
+            background-color: #f1f5f9;
+        }
+        .faculty-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .faculty-card:hover .faculty-img {
+            transform: scale(1.05);
+        }
+        .faculty-body {
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .faculty-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-heading) !important;
+            margin-bottom: 8px;
+        }
+        .faculty-desc {
+            color: var(--text-muted) !important;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            margin-bottom: 0;
+        }
+
+        /* COURSES CARDS */
+        .course-img-wrapper {
+            width: 100%;
+            height: 210px;
+            overflow: hidden;
+            position: relative;
+        }
+        .course-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+        .card:hover .course-img {
+            transform: scale(1.05);
         }
 
         /* ADMISSION FORM */
@@ -370,15 +507,25 @@ $result = mysqli_query($data,$sql);
             margin-bottom: 6px;
         }
 
-        footer {
-            background-color: var(--navbar-bg);
-            border-top: 1px solid var(--navbar-border);
-            padding: 40px 0;
+        /* FOOTER COMPREHENSIVE STYLING */
+        .footer-section {
+            background-color: var(--footer-bg);
+            border-top: 1px solid var(--footer-border);
             color: var(--text-muted);
+            transition: all 0.25s ease;
         }
-        footer h5 {
-            color: var(--text-heading) !important;
-            font-weight: 700;
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .footer-links a:hover {
+            color: var(--accent-orange);
+            transform: translateX(4px);
+        }
+        .text-orange {
+            color: var(--accent-orange) !important;
         }
     </style>
 </head>
@@ -398,35 +545,44 @@ $result = mysqli_query($data,$sql);
                 <ul class="navbar-nav align-items-center">
                     <?php if($is_logged_in): ?>
                         <?php if($usertype == 'student'): ?>
-                            <!-- Student Logged In Nav (Matching Image 2 & 5) -->
-                            <li class="nav-item"><a class="nav-link active-dash" href="studenthome.php"><i class="fas fa-th-large me-1"></i> Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link active-dash" href="studenthome.php"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a></li>
                             <li class="nav-item"><a class="nav-link" href="student_courses.php"><i class="fas fa-book me-1"></i> My Courses</a></li>
-                            <li class="nav-item"><a class="nav-link" href="student_attendance.php"><i class="fas fa-clipboard-check me-1"></i> My Attendance</a></li>
+                            <li class="nav-item"><a class="nav-link" href="student_attendance.php"><i class="fas fa-clipboard-check me-1"></i> Attendance</a></li>
                             <li class="nav-item"><a class="nav-link" href="student_profile.php"><i class="fas fa-user-circle me-1"></i> Profile</a></li>
-                        <?php else: ?>
-                            <!-- Admin Logged In Nav -->
-                            <li class="nav-item"><a class="nav-link active-dash" href="adminhome.php"><i class="fas fa-chart-line me-1"></i> Admin Dashboard</a></li>
-                            <li class="nav-item"><a class="nav-link" href="view_student.php"><i class="fas fa-user-graduate me-1"></i> Students</a></li>
-                            <li class="nav-item"><a class="nav-link" href="admin_view_teacher.php"><i class="fas fa-chalkboard-teacher me-1"></i> Faculty</a></li>
-                            <li class="nav-item"><a class="nav-link" href="admin_attendance.php"><i class="fas fa-clipboard-check me-1"></i> Attendance</a></li>
+                        <?php elseif($usertype == 'admin'): ?>
+                            <li class="nav-item"><a class="nav-link active-dash" href="adminhome.php"><i class="fas fa-tachometer-alt me-1"></i> Console</a></li>
+                            <li class="nav-item"><a class="nav-link" href="admission.php"><i class="fas fa-user-plus me-1"></i> Admissions</a></li>
+                            <li class="nav-item"><a class="nav-link" href="view_student.php"><i class="fas fa-users me-1"></i> Students</a></li>
+                            <li class="nav-item"><a class="nav-link" href="admin_view_teacher.php"><i class="fas fa-chalkboard-teacher me-1"></i> Teachers</a></li>
+                            <li class="nav-item"><a class="nav-link" href="admin_courses.php"><i class="fas fa-graduation-cap me-1"></i> Courses</a></li>
                         <?php endif; ?>
-                        <li class="nav-item ms-3 d-flex align-items-center gap-2">
-                            <button class="theme-toggle-btn" title="Toggle Light/Dark Theme" type="button" onclick="toggleTheme()">
+                        
+                        <li class="nav-item ms-lg-2 my-2 my-lg-0">
+                            <button class="theme-toggle-btn shadow-sm" title="Toggle Light/Dark Theme" type="button" onclick="toggleTheme()">
                                 <i class="fas fa-moon"></i>
                             </button>
-                            <a href="logout.php" class="btn btn-signout"><i class="fas fa-sign-out-alt me-1"></i> Sign Out</a>
+                        </li>
+
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn-signout d-inline-block" href="logout.php">
+                                <i class="fas fa-sign-out-alt me-1"></i> Sign Out
+                            </a>
                         </li>
                     <?php else: ?>
-                        <!-- Guest Navigation -->
                         <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
                         <li class="nav-item"><a class="nav-link" href="#faculty">Faculty</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#admission">Admissions</a></li>
-                        <li class="nav-item ms-3 d-flex align-items-center gap-2">
-                            <button class="theme-toggle-btn" title="Toggle Light/Dark Theme" type="button" onclick="toggleTheme()">
+                        <li class="nav-item"><a class="nav-link" href="#admission">Admission</a></li>
+                        <li class="nav-item ms-lg-2 my-2 my-lg-0">
+                            <button class="theme-toggle-btn shadow-sm" title="Toggle Light/Dark Theme" type="button" onclick="toggleTheme()">
                                 <i class="fas fa-moon"></i>
                             </button>
-                            <a href="login.php" class="btn btn-login-pill fw-bold"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn-login-pill d-inline-block" href="login.php">
+                                <i class="fas fa-user-lock me-1"></i> Login
+                            </a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -434,7 +590,7 @@ $result = mysqli_query($data,$sql);
         </div>
     </nav>
 
-    <!-- Hero Section (Inspired by Symbiosis LMS Banner - Image 2) -->
+    <!-- Hero Section -->
     <div class="hero-section">
         <div class="container">
             <div class="row align-items-center">
@@ -446,7 +602,7 @@ $result = mysqli_query($data,$sql);
                         AETHER <span class="accent-text">LMS</span>
                     </h1>
                     
-                    <!-- 3 Core Value Pillars (Image 2) -->
+                    <!-- 3 Core Value Pillars -->
                     <div class="row g-3 mb-4">
                         <div class="col-md-4 col-sm-6">
                             <div class="pillar-card">
@@ -500,7 +656,7 @@ $result = mysqli_query($data,$sql);
                             <div class="badge-icon"><i class="fas fa-graduation-cap"></i></div>
                             <div>
                                 <div class="fw-bold text-white" style="font-size: 0.95rem;">Aether Academy</div>
-                                <div class="text-white-50" style="font-size: 0.8rem;">SICSR Pune LMS &bull; Academic Portal</div>
+                                <div class="text-white-50" style="font-size: 0.8rem;">Next-Gen LMS &bull; Academic Portal</div>
                             </div>
                         </div>
                     </div>
@@ -509,32 +665,81 @@ $result = mysqli_query($data,$sql);
         </div>
     </div>
 
-    <!-- About Section -->
+    <!-- About Section (Fixed: Removed useless 'Meet our faculty' button) -->
     <div id="about" class="container py-5 mt-4">
         <div class="row align-items-center">
             <div class="col-lg-5 mb-4 mb-lg-0">
                 <img src="school2.jpg" alt="School Building" class="img-fluid rounded-4 shadow-lg" style="border: 2px solid var(--accent-orange);">
             </div>
             <div class="col-lg-7 px-lg-5">
-                <h2 class="fw-bold mb-3" style="color: var(--text-heading);">Welcome to Aether Management Portal</h2>
+                <h2 class="fw-bold mb-3">Welcome to Aether Management Portal</h2>
                 <div class="hero-divider mb-3"></div>
-                <p class="text-muted lh-lg">
-                    <strong style="color: var(--text-heading);">1883: Founded by Visionary Educator</strong><br>
+                <p class="about-text lh-lg mb-3">
+                    <strong>1883: Founded by Visionary Educator</strong><br>
                     Aether College opened its doors in 1883, established by Professor Eleanor Cross. A pioneer in education, she envisioned a college fostering critical thinking, social responsibility, and a well-rounded education. Starting with a modest curriculum, Eleanor's dedication quickly attracted students and prominent faculty, cementing the college's reputation for academic rigor.
                 </p>
-                <div class="mt-4">
-                    <a href="#faculty" class="btn btn-hero-secondary rounded-pill px-4 py-2 fw-bold">
-                        Meet Our Faculty <i class="fas fa-arrow-right ms-2"></i>
-                    </a>
+                <p class="about-text lh-lg">
+                    <strong>A Legacy of Modern Academic Excellence</strong><br>
+                    Today, Aether Academy remains true to its founding principles while pioneering modern digital learning management. It offers a diverse range of undergraduate and graduate programs, serving a global student body with real-time academic analytics, streamlined admissions, and personalized faculty mentorship.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Section -->
+    <div id="courses" class="container py-5 my-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Featured Academic Programs</h2>
+            <div class="hero-divider mx-auto mb-2"></div>
+            <p class="text-muted">Comprehensive, career-oriented curriculums designed by industry pioneers.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6">
+                <div class="card h-100">
+                    <div class="course-img-wrapper">
+                        <img src="webdev.jpeg" class="course-img" alt="Web Development">
+                    </div>
+                    <div class="card-body p-4 text-center">
+                        <h4 class="fw-bold mb-2">Web Development</h4>
+                        <p class="card-text text-muted mb-3">Full-stack web architecture, modern frontend frameworks, secure backend systems, and database engineering.</p>
+                        <span class="badge rounded-pill" style="background: rgba(249,115,22,0.15); color: var(--accent-orange); border: 1px solid var(--accent-orange);">Engineering</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="card h-100">
+                    <div class="course-img-wrapper">
+                        <img src="graphics.jpeg" class="course-img" alt="Graphic Design">
+                    </div>
+                    <div class="card-body p-4 text-center">
+                        <h4 class="fw-bold mb-2">Graphic Design &amp; UI/UX</h4>
+                        <p class="card-text text-muted mb-3">Visual branding, digital media production, typography, interaction design, and user journey optimization.</p>
+                        <span class="badge rounded-pill" style="background: rgba(249,115,22,0.15); color: var(--accent-orange); border: 1px solid var(--accent-orange);">Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="card h-100">
+                    <div class="course-img-wrapper">
+                        <img src="law.jpeg" class="course-img" alt="Corporate Law">
+                    </div>
+                    <div class="card-body p-4 text-center">
+                        <h4 class="fw-bold mb-2">Corporate Law</h4>
+                        <p class="card-text text-muted mb-3">International corporate governance, legal risk mitigation, contracts, intellectual property, and compliance.</p>
+                        <span class="badge rounded-pill" style="background: rgba(249,115,22,0.15); color: var(--accent-orange); border: 1px solid var(--accent-orange);">Jurisprudence</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Faculty Section -->
+    <!-- Faculty Section (Fixed: Perfectly aligned photos with top-center framing) -->
     <div id="faculty" class="container py-5 my-3">
         <div class="text-center mb-5">
-            <h2 class="fw-bold" style="color: var(--text-heading);">Distinguished Faculty</h2>
+            <h2 class="fw-bold">Distinguished Faculty</h2>
             <div class="hero-divider mx-auto mb-2"></div>
             <p class="text-muted">Learn from world-class legal minds, theorists, and visionary educators.</p>
         </div>
@@ -542,11 +747,13 @@ $result = mysqli_query($data,$sql);
         <div class="row g-4">
             <?php while($info = $result->fetch_assoc()): ?>
                 <div class="col-md-4 col-sm-6">
-                    <div class="card h-100 text-center p-3">
-                        <img class="teacher-img" src="<?php echo $info['image']; ?>" alt="<?php echo htmlspecialchars($info['name']); ?>" style="height: 220px; object-fit: cover; border-radius: 10px;">
-                        <div class="card-body">
-                            <h4 class="fw-bold mb-2"><?php echo htmlspecialchars($info['name']); ?></h4>
-                            <p class="card-text text-muted small"><?php echo htmlspecialchars($info['description']); ?></p>
+                    <div class="faculty-card">
+                        <div class="faculty-img-wrapper">
+                            <img class="faculty-img" src="<?php echo htmlspecialchars($info['image']); ?>" alt="<?php echo htmlspecialchars($info['name']); ?>">
+                        </div>
+                        <div class="faculty-body">
+                            <h4 class="faculty-name"><?php echo htmlspecialchars($info['name']); ?></h4>
+                            <p class="faculty-desc"><?php echo htmlspecialchars($info['description']); ?></p>
                         </div>
                     </div>
                 </div>
@@ -560,7 +767,7 @@ $result = mysqli_query($data,$sql);
             <div class="col-lg-8">
                 <div class="admission-container">
                     <div class="text-center mb-4">
-                        <h2 class="fw-bold" style="color: var(--text-heading);">Apply For Admission</h2>
+                        <h2 class="fw-bold">Apply For Admission</h2>
                         <div class="hero-divider mx-auto mb-2"></div>
                         <p class="text-muted">Fill out the official application form below. Our admissions office will process your candidate review.</p>
                     </div>
@@ -598,12 +805,95 @@ $result = mysqli_query($data,$sql);
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container text-center">
-            <h5 class="mb-2">Aether Academy</h5>
-            <p class="small mb-1">Symbiosis Institute of Computer Studies and Research (SICSR), Pune</p>
-            <p class="small text-muted mb-0">&copy; 2026 Aether Academy. All Rights Reserved. Engineered by Uday Praveen (PRN: 23030124196).</p>
+    <!-- Comprehensive Academic Footer -->
+    <footer class="footer-section">
+        <div class="container py-5">
+            <div class="row g-4">
+                <!-- Col 1: Brand & Mission -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="logo.png" alt="Aether Logo" width="46" height="46" class="me-2 rounded-circle" style="border: 2px solid var(--accent-orange);">
+                        <h4 class="fw-bold mb-0 text-white">AETHER <span class="text-orange">ACADEMY</span></h4>
+                    </div>
+                    <p class="small text-muted mb-3" style="line-height: 1.7;">
+                        Next-Generation Academic Management &amp; Learning Portal. Delivering seamless administration, student attendance tracking, curated course management, and admissions for tomorrow's leaders.
+                    </p>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <span class="badge py-2 px-3 rounded-pill" style="background: rgba(249,115,22,0.12); color: var(--accent-orange); border: 1px solid rgba(249,115,22,0.3); font-size: 0.8rem;">
+                            <i class="fas fa-shield-alt me-1"></i> Accredited Academic LMS
+                        </span>
+                        <span class="badge py-2 px-3 rounded-pill" style="background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.3); font-size: 0.8rem;">
+                            <i class="fas fa-check-circle me-1"></i> Active Portal v3.4
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="letter-spacing: 0.05em; font-size: 0.85rem;">Platform</h6>
+                    <ul class="list-unstyled footer-links small">
+                        <li class="mb-2"><a href="index.php"><i class="fas fa-chevron-right me-1 text-orange"></i> Homepage</a></li>
+                        <li class="mb-2"><a href="#about"><i class="fas fa-chevron-right me-1 text-orange"></i> About Academy</a></li>
+                        <li class="mb-2"><a href="#courses"><i class="fas fa-chevron-right me-1 text-orange"></i> Courses Offered</a></li>
+                        <li class="mb-2"><a href="#faculty"><i class="fas fa-chevron-right me-1 text-orange"></i> Faculty Directory</a></li>
+                        <li class="mb-2"><a href="#admission"><i class="fas fa-chevron-right me-1 text-orange"></i> Apply Online</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Academic Portals & Modules -->
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="letter-spacing: 0.05em; font-size: 0.85rem;">Portals &amp; Modules</h6>
+                    <ul class="list-unstyled footer-links small">
+                        <li class="mb-2"><a href="login.php"><i class="fas fa-lock me-1 text-orange"></i> Student &amp; Staff Login</a></li>
+                        <li class="mb-2"><a href="studenthome.php"><i class="fas fa-user-graduate me-1 text-orange"></i> Student Dashboard</a></li>
+                        <li class="mb-2"><a href="student_attendance.php"><i class="fas fa-clipboard-check me-1 text-orange"></i> Attendance Tracker</a></li>
+                        <li class="mb-2"><a href="adminhome.php"><i class="fas fa-tools me-1 text-orange"></i> Administration Console</a></li>
+                        <li class="mb-2"><a href="admission.php"><i class="fas fa-file-alt me-1 text-orange"></i> Admissions Queue</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Campus & Inquiries -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="letter-spacing: 0.05em; font-size: 0.85rem;">Contact &amp; Campus</h6>
+                    <ul class="list-unstyled text-muted small footer-contact mb-3">
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt text-orange mt-1 me-2"></i>
+                            <span>University Boulevard, Academic District, Building 4A</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-envelope text-orange me-2"></i>
+                            <span>admissions@aetheracademy.edu</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-phone-alt text-orange me-2"></i>
+                            <span>+1 (800) 238-4370</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-clock text-orange me-2"></i>
+                            <span>Mon - Fri: 8:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <hr class="my-4" style="border-color: var(--navbar-border); opacity: 0.6;">
+
+            <!-- Bottom Row: Copyright & Legal/Social -->
+            <div class="row align-items-center small">
+                <div class="col-md-7 text-center text-md-start mb-2 mb-md-0 text-muted">
+                    &copy; 2026 Aether Academy. All Rights Reserved. Engineered by <strong>Uday Praveen</strong> (PRN: 23030124196).
+                </div>
+                <div class="col-md-5 text-center text-md-end">
+                    <div class="d-inline-flex gap-3 text-muted">
+                        <a href="#" class="text-muted text-decoration-none">Privacy Policy</a>
+                        <span>&bull;</span>
+                        <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+                        <span>&bull;</span>
+                        <a href="#" class="text-muted text-decoration-none">Academic Code</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -664,7 +954,7 @@ $result = mysqli_query($data,$sql);
     </script>
 
     <script>
-      console.log('%c Aether Academy %c Developed by Uday Praveen (SICSR Pune) ', 'background: #ea580c; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #0f172a; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
+      console.log('%c Aether Academy %c Developed by Uday Praveen ', 'background: #ea580c; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #0f172a; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
     </script>
 </body>
 </html>

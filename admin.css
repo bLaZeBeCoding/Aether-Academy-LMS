@@ -164,7 +164,7 @@ body {
 }
 
 [data-theme="light"] .logout .btn {
-    background: #dc2626 !important; /* Symbiosis Red Pill */
+    background: #dc2626 !important; /* Crimson Logout Pill */
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
 }
 [data-theme="light"] .logout .btn:hover {

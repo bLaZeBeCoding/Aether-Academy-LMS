@@ -12,7 +12,10 @@ if(localStorage.getItem('sidebarState') === 'collapsed') { document.body.classLi
         <a class="dashhead" href="adminhome.php">Admin Dashboard</a>
     </div>
 
-    <div class="logout">
+    <div class="logout d-flex align-items-center gap-3">
+        <button class="theme-toggle-btn" title="Toggle Light/Dark Theme" type="button">
+            <i class="fas fa-moon"></i>
+        </button>
         <a class="btn btn-primary" href="logout.php">Logout</a>
     </div>
 </header>
@@ -39,4 +42,3 @@ if(localStorage.getItem('sidebarState') === 'collapsed') { document.body.classLi
         });
     });
 </script>
-

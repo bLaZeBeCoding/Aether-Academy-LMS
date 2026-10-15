@@ -35,6 +35,12 @@ if(isset($_SESSION['loginMessage'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('aether-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Aether Academy</title>
@@ -137,9 +143,87 @@ if(isset($_SESSION['loginMessage'])) {
         .back-link:hover {
             color: #06b6d4;
         }
+    
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #06b6d4;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            border-color: #06b6d4;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+            color: #38bdf8;
+        }
+        [data-theme="light"] .theme-toggle-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #f59e0b;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        [data-theme="light"] .theme-toggle-btn:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+            color: #d97706;
+        }
+        [data-theme="light"] body {
+            background: linear-gradient(rgba(248, 250, 252, 0.85), rgba(241, 245, 249, 0.95)), url('school1.jpg') no-repeat center center/cover !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .login-card {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08) !important;
+        }
+        [data-theme="light"] .login-card .logo-area h2 {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .login-card .logo-area p {
+            color: #64748b !important;
+        }
+        [data-theme="light"] .form-label {
+            color: #1e293b !important;
+        }
+        [data-theme="light"] .form-control {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            border-left: none !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .input-group-text {
+            background-color: #f1f5f9 !important;
+            border: 1px solid #cbd5e1 !important;
+            border-right: none !important;
+            color: #0284c7 !important;
+        }
+        [data-theme="light"] .back-link {
+            color: #64748b !important;
+        }
+        [data-theme="light"] .back-link:hover {
+            color: #0284c7 !important;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Floating Theme Toggle -->
+    <div style="position: fixed; top: 75px; right: 25px; z-index: 1060;">
+        <button class="theme-toggle-btn shadow" title="Toggle Light/Dark Theme" type="button" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
 
     <?php if(isset($_SESSION['easter_egg'])): ?>
     <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.8);" id="easterEggModal" tabindex="-1">
@@ -158,7 +242,7 @@ if(isset($_SESSION['loginMessage'])) {
     <?php unset($_SESSION['easter_egg']); endif; ?>
 
     <?php if($timeout_msg): ?>
-    <div id="timeoutAlert" class="position-absolute shadow-lg" style="top: 25px; right: 25px; background-color: rgba(220, 38, 38, 0.85); backdrop-filter: blur(10px); color: white; padding: 18px 25px; border-radius: 8px; font-weight: 600; font-size: 1rem; z-index: 1050; border: 1px solid rgba(239, 68, 68, 0.5); overflow: hidden; min-width: 320px;">
+    <div id="timeoutAlert" class="position-absolute shadow-lg" style="top: 75px; right: 25px; background-color: rgba(220, 38, 38, 0.85); backdrop-filter: blur(10px); color: white; padding: 18px 25px; border-radius: 8px; font-weight: 600; font-size: 1rem; z-index: 1050; border: 1px solid rgba(239, 68, 68, 0.5); overflow: hidden; min-width: 320px;">
         <div style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 2; margin-bottom: 2px;">
             <i class="fas fa-clock fs-4"></i>
             <span>You were logged out due to inactivity</span>
@@ -236,5 +320,31 @@ if(isset($_SESSION['loginMessage'])) {
 <script>
   console.log('%c Aether Academy %c Developed by Uday Praveen (SICSR Pune) ', 'background: #06b6d4; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #8b5cf6; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
 </script>
+
+<script>
+    function toggleTheme() {
+        var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', current);
+        localStorage.setItem('aether-theme', current);
+        updateThemeIcons(current);
+    }
+    function updateThemeIcons(theme) {
+        var icons = document.querySelectorAll('.theme-toggle-btn i');
+        icons.forEach(function(icon) {
+            if(theme === 'light') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var theme = localStorage.getItem('aether-theme') || 'dark';
+        updateThemeIcons(theme);
+    });
+</script>
+
 </body>
 </html>

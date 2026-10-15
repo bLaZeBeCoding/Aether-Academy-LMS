@@ -28,6 +28,12 @@ $result = mysqli_query($data,$sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('aether-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aether Academy | Student Management</title>
@@ -175,7 +181,103 @@ $result = mysqli_query($data,$sql);
             margin: 15px auto; 
             border-radius: 2px;
         }
+    
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #06b6d4;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            border-color: #06b6d4;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+            color: #38bdf8;
+        }
+        [data-theme="light"] .theme-toggle-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #f59e0b;
+        }
+        [data-theme="light"] .theme-toggle-btn:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+            color: #d97706;
+        }
+        /* Light Mode Overrides for Homepage */
+        [data-theme="light"] body {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+        }
+        [data-theme="light"] .navbar .nav-link {
+            color: #334155 !important;
+        }
+        [data-theme="light"] .navbar .nav-link:hover {
+            color: #0284c7 !important;
+        }
+        [data-theme="light"] .navbar-toggler {
+            border-color: #cbd5e1 !important;
+        }
+        [data-theme="light"] .navbar-toggler-icon {
+            filter: none !important;
+        }
+        [data-theme="light"] .hero-section {
+            background: linear-gradient(rgba(248, 250, 252, 0.88), rgba(248, 250, 252, 0.96)), url('mainbg.jpg') center/cover !important;
+        }
+        [data-theme="light"] .hero-section h1 {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .hero-section p {
+            color: #475569 !important;
+        }
+        [data-theme="light"] .card, 
+        [data-theme="light"] .admission-container {
+            background-color: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06) !important;
+        }
+        [data-theme="light"] .card h3 {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .card p {
+            color: #64748b !important;
+        }
+        [data-theme="light"] .form-control {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .form-label {
+            color: #0f172a !important;
+        }
+        [data-theme="light"] .text-muted {
+            color: #64748b !important;
+        }
+        [data-theme="light"] footer {
+            background-color: #f1f5f9 !important;
+            border-top: 1px solid #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        [data-theme="light"] footer h5 {
+            color: #0f172a !important;
+        }
+
     </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -195,7 +297,12 @@ $result = mysqli_query($data,$sql);
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#faculty">Faculty</a></li>
                     <li class="nav-item"><a class="nav-link" href="#admission">Admissions</a></li>
-                    <li class="nav-item ms-3"><a href="login.php" class="btn btn-outline-neon rounded-pill px-4 fw-bold">Login</a></li>
+                    <li class="nav-item ms-3 d-flex align-items-center gap-2">
+                        <button class="theme-toggle-btn" title="Toggle Light/Dark Theme" type="button" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <a href="login.php" class="btn btn-outline-neon rounded-pill px-4 fw-bold">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -388,6 +495,29 @@ $result = mysqli_query($data,$sql);
 <script>
   console.log('%c Aether Academy %c Developed by Uday Praveen (SICSR Pune) ', 'background: #06b6d4; color: #fff; border-radius: 3px 0 0 3px; padding: 2px 5px; font-weight: bold;', 'background: #8b5cf6; color: #fff; border-radius: 0 3px 3px 0; padding: 2px 5px;');
 </script>
+
+<script>
+    function toggleTheme() {
+        var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', current);
+        localStorage.setItem('aether-theme', current);
+        updateThemeIcons(current);
+    }
+    function updateThemeIcons(theme) {
+        $('.theme-toggle-btn i').each(function() {
+            if(theme === 'light') {
+                $(this).removeClass('fa-moon').addClass('fa-sun');
+            } else {
+                $(this).removeClass('fa-sun').addClass('fa-moon');
+            }
+        });
+    }
+    $(document).ready(function() {
+        var theme = localStorage.getItem('aether-theme') || 'dark';
+        updateThemeIcons(theme);
+    });
+</script>
+
 </body>
 </html>
 

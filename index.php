@@ -484,21 +484,39 @@ $result = mysqli_query($data,$sql);
             box-shadow: 0 12px 35px rgba(0,0,0,0.08);
         }
         .form-control {
-            background-color: var(--bg-canvas) !important;
-            border: 1px solid var(--card-border) !important;
+            background-color: #0f172a !important;
+            border: 1px solid #334155 !important;
             color: var(--text-heading) !important;
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.95rem;
+        }
+        .form-control::placeholder,
+        textarea.form-control::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
         }
         [data-theme="light"] .form-control {
             background-color: #ffffff !important;
             border-color: #cbd5e1 !important;
             color: #0f172a !important;
         }
+        [data-theme="light"] .form-control::placeholder,
+        [data-theme="light"] textarea.form-control::placeholder {
+            color: #64748b !important;
+            opacity: 1 !important;
+        }
         .form-control:focus {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
             border-color: var(--accent-orange) !important;
-            box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.2) !important;
+            box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25) !important;
+        }
+        [data-theme="light"] .form-control:focus {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: var(--accent-orange) !important;
+            box-shadow: 0 0 0 0.25rem rgba(234, 88, 12, 0.2) !important;
         }
         .form-label {
             color: var(--text-heading) !important;

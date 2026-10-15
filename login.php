@@ -113,7 +113,12 @@ if(isset($_SESSION['loginMessage'])) {
             color: #06b6d4;
         }
         .form-control::placeholder {
-            color: #64748b;
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+        }
+        [data-theme="light"] .form-control::placeholder {
+            color: #64748b !important;
+            opacity: 1 !important;
         }
         .btn-neon {
             background: linear-gradient(45deg, #8b5cf6, #06b6d4);

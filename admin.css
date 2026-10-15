@@ -389,4 +389,4 @@ body.sidebar-collapsed .content {
 }
 
 .text-muted { color: var(--text-muted) !important; }
-.form-control::placeholder { color: var(--text-muted) !important; opacity: 1; }
+.form-control::placeholder, textarea.form-control::placeholder { color: var(--text-muted) !important; opacity: 1 !important; }

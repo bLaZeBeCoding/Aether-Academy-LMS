@@ -35,20 +35,7 @@ if(isset($_POST['save_attendance'])) {
     }
 }
 
-// Fetch general stats for dashboard widgets
-$total_courses_res = mysqli_query($data, "SELECT COUNT(*) as count FROM course");
-$total_courses = mysqli_fetch_assoc($total_courses_res)['count'] ?? 0;
-
-$total_enrollments_res = mysqli_query($data, "SELECT COUNT(*) as count FROM enrollment");
-$total_enrollments = mysqli_fetch_assoc($total_enrollments_res)['count'] ?? 0;
-
-$overall_rate_res = mysqli_query($data, "SELECT COUNT(*) as total, SUM(CASE WHEN status='Present' THEN 1 ELSE 0 END) as present_cnt FROM attendance");
-$overall_data = mysqli_fetch_assoc($overall_rate_res);
-$overall_rate = ($overall_data && $overall_data['total'] > 0) ? round(($overall_data['present_cnt'] / $overall_data['total']) * 100, 1) : 0.0;
-
 $today_date = date('Y-m-d');
-$today_marked_res = mysqli_query($data, "SELECT COUNT(DISTINCT course_id) as count FROM attendance WHERE attendance_date = '$today_date'");
-$today_marked_courses = mysqli_fetch_assoc($today_marked_res)['count'] ?? 0;
 
 // All courses with teacher info & stats
 $courses_query = "SELECT 
@@ -92,22 +79,6 @@ if($selected_course != '') {
         $enrolled_students[] = $s;
     }
 }
-
-// Recent attendance activity logs
-$recent_logs_query = "SELECT 
-    a.attendance_date, 
-    c.id as course_id,
-    c.name as course_name,
-    COUNT(a.id) as total_students,
-    SUM(CASE WHEN a.status = 'Present' THEN 1 ELSE 0 END) as present_count,
-    SUM(CASE WHEN a.status = 'Absent' THEN 1 ELSE 0 END) as absent_count,
-    ROUND((SUM(CASE WHEN a.status = 'Present' THEN 1 ELSE 0 END) / COUNT(a.id)) * 100, 1) as rate
-FROM attendance a
-JOIN course c ON a.course_id = c.id
-GROUP BY a.attendance_date, c.id
-ORDER BY a.attendance_date DESC, c.id ASC
-LIMIT 6";
-$recent_logs_res = mysqli_query($data, $recent_logs_query);
 ?>
 
 <!DOCTYPE html>
@@ -118,30 +89,6 @@ $recent_logs_res = mysqli_query($data, $recent_logs_query);
     <title>Course Attendance Management | Aether Academy</title>
     <?php include 'admin_css.php'; ?>
     <style>
-        .stat-widget {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 20px;
-            transition: all 0.25s ease;
-            box-shadow: var(--shadow-card);
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-widget:hover {
-            transform: translateY(-3px);
-            border-color: rgba(249, 115, 22, 0.4);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-        }
-        .stat-widget .stat-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-        }
         .course-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -260,72 +207,7 @@ $recent_logs_res = mysqli_query($data, $recent_logs_query);
     </div>
     <?php endif; ?>
 
-    <!-- Executive Metrics Row -->
-    <div class="row g-3 mb-4">
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-widget d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small text-uppercase fw-bold mb-1" style="letter-spacing: 0.05em;">Courses Offered</div>
-                    <div class="fs-3 fw-bold"><?php echo $total_courses; ?> Active</div>
-                    <div class="small text-muted mt-1"><i class="fas fa-graduation-cap text-warning me-1"></i> Across All Departments</div>
-                </div>
-                <div class="stat-icon" style="background: rgba(249, 115, 22, 0.12); color: var(--accent-orange);">
-                    <i class="fas fa-book-open"></i>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-widget d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small text-uppercase fw-bold mb-1" style="letter-spacing: 0.05em;">Total Enrollments</div>
-                    <div class="fs-3 fw-bold"><?php echo $total_enrollments; ?> Students</div>
-                    <div class="small text-muted mt-1"><i class="fas fa-user-check text-info me-1"></i> Active Roster Count</div>
-                </div>
-                <div class="stat-icon" style="background: rgba(14, 165, 233, 0.12); color: #0ea5e9;">
-                    <i class="fas fa-users"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-widget d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small text-uppercase fw-bold mb-1" style="letter-spacing: 0.05em;">Academy Attendance</div>
-                    <div class="fs-3 fw-bold"><?php echo $overall_rate; ?>%</div>
-                    <div class="small text-muted mt-1">
-                        <?php if($overall_rate >= 75): ?>
-                            <span class="text-success"><i class="fas fa-arrow-up me-1"></i> Good Standing (&gt;= 75%)</span>
-                        <?php else: ?>
-                            <span class="text-warning"><i class="fas fa-exclamation-triangle me-1"></i> Needs Attention</span>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div class="stat-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6">
-            <div class="stat-widget d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small text-uppercase fw-bold mb-1" style="letter-spacing: 0.05em;">Today's Roll Call</div>
-                    <div class="fs-3 fw-bold"><?php echo $today_marked_courses; ?> / <?php echo $total_courses; ?></div>
-                    <div class="small text-muted mt-1">
-                        <?php if($today_marked_courses == $total_courses): ?>
-                            <span class="text-success"><i class="fas fa-check-double me-1"></i> All Classes Logged</span>
-                        <?php else: ?>
-                            <span class="text-warning"><i class="fas fa-clock me-1"></i> <?php echo ($total_courses - $today_marked_courses); ?> Pending Today</span>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div class="stat-icon" style="background: rgba(168, 85, 247, 0.12); color: #a855f7;">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Filter & Session Control Bar -->
     <div class="card shadow-sm border-0 mb-4">
@@ -433,72 +315,7 @@ $recent_logs_res = mysqli_query($data, $recent_logs_query);
             <?php endforeach; ?>
         </div>
 
-        <!-- Recent Activity Log Section -->
-        <div class="card shadow-sm border-0 mb-4">
-            <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h4 class="fw-bold mb-1" style="font-size: 1.25rem;">
-                            <i class="fas fa-history text-info me-2"></i>Recent Attendance Logs
-                        </h4>
-                        <p class="text-muted small mb-0">Review previously recorded roll call sessions across courses.</p>
-                    </div>
-                </div>
 
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Date</th>
-                                <th>Course</th>
-                                <th>Enrolled</th>
-                                <th>Present</th>
-                                <th>Absent</th>
-                                <th>Attendance Rate</th>
-                                <th class="text-end">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(mysqli_num_rows($recent_logs_res) > 0): ?>
-                                <?php while($log = mysqli_fetch_assoc($recent_logs_res)): ?>
-                                <tr>
-                                    <td class="fw-bold">
-                                        <i class="far fa-calendar-check text-warning me-2"></i><?php echo date('M d, Y', strtotime($log['attendance_date'])); ?>
-                                    </td>
-                                    <td>
-                                        <span class="fw-semibold"><?php echo htmlspecialchars($log['course_name']); ?></span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-secondary"><?php echo $log['total_students']; ?> Students</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-success fw-bold"><i class="fas fa-check me-1"></i><?php echo $log['present_count']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span class="text-danger fw-bold"><i class="fas fa-times me-1"></i><?php echo $log['absent_count']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span class="badge py-2 px-3 rounded-pill" style="<?php echo ($log['rate'] >= 75) ? 'background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3);' : 'background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3);'; ?>">
-                                            <?php echo $log['rate']; ?>%
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="?course_id=<?php echo $log['course_id']; ?>&attendance_date=<?php echo $log['attendance_date']; ?>" class="btn btn-sm btn-outline-info">
-                                            <i class="fas fa-edit me-1"></i> Inspect / Edit
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endwhile; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="7" class="text-center py-4 text-muted">No attendance sessions recorded yet.</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
     <!-- VIEW 2: WHEN A COURSE IS SELECTED (INTERACTIVE ROSTER & ROLL CALL) -->
     <?php else: ?>

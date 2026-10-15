@@ -894,27 +894,34 @@ $result = mysqli_query($data, $sql);
                         </div>
                     <?php endif; ?>
 
-                    <form id="admissionForm" action="data_check.php" method="POST">
+                    <form id="admissionForm" action="data_check.php" method="POST" novalidate>
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control form-control-lg" name="name" required
+                            <input type="text" class="form-control form-control-lg" name="name" id="formName" required
+                                minlength="2" maxlength="60" pattern="^[a-zA-Z\s\.\']{2,60}$"
                                 placeholder="e.g. John Doe">
+                            <div class="invalid-feedback">Please enter a valid full name (letters only, min 2 characters).</div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control form-control-lg" name="email" required
+                            <input type="email" class="form-control form-control-lg" name="email" id="formEmail" required
+                                pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
                                 placeholder="john@example.com">
+                            <div class="invalid-feedback">Please enter a valid email address with a domain (e.g. name@example.com).</div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
-                            <input type="tel" pattern="^\d{10}$" class="form-control form-control-lg" name="phone"
-                                required placeholder="10-digit mobile number"
-                                title="Please enter a valid 10-digit phone number">
+                            <input type="tel" class="form-control form-control-lg" name="phone" id="formPhone" required
+                                pattern="^[6-9]\d{9}$" maxlength="10"
+                                placeholder="10-digit mobile number (starts with 6, 7, 8, or 9)">
+                            <div class="invalid-feedback">Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.</div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Statement of Purpose / Message</label>
-                            <textarea class="form-control" name="message" rows="4" required
-                                placeholder="Briefly introduce your academic interests and career goals..."></textarea>
+                            <textarea class="form-control" name="message" id="formMessage" rows="4" required
+                                minlength="10" maxlength="1000"
+                                placeholder="Briefly introduce your academic interests and career goals (minimum 10 characters)..."></textarea>
+                            <div class="invalid-feedback">Statement of purpose must be at least 10 characters long.</div>
                         </div>
                         <div class="d-grid mt-4">
                             <button id="submitBtn" type="submit"
@@ -1063,27 +1070,94 @@ $result = mysqli_query($data, $sql);
         });
     </script>
 
-    <!-- AJAX Form Handling -->
+    <!-- AJAX Form Handling with Strict Client & Server Validation -->
     <script>
         $(document).ready(function () {
+            // Remove is-invalid on user input
+            $('#admissionForm input, #admissionForm textarea').on('input', function() {
+                $(this).removeClass('is-invalid');
+            });
+
             $('#admissionForm').on('submit', function (e) {
                 e.preventDefault();
+                var $alert = $('#ajax-alert');
+                $alert.addClass('d-none').removeClass('alert-success alert-danger');
+
+                var name = $('#formName').val().trim();
+                var email = $('#formEmail').val().trim();
+                var phone = $('#formPhone').val().trim();
+                var message = $('#formMessage').val().trim();
+
+                // 1. Client-Side Full Name Check
+                if (name.length < 2) {
+                    $('#formName').addClass('is-invalid').focus();
+                    $alert.removeClass('d-none').addClass('alert-danger')
+                        .html('<i class="fas fa-exclamation-circle me-2"></i><strong>Validation Error:</strong> Please enter a valid full name (at least 2 characters).');
+                    return false;
+                }
+
+                // 2. Client-Side Email Domain Check (Blocks emails like john3@gmail missing .com)
+                var emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    $('#formEmail').addClass('is-invalid').focus();
+                    $alert.removeClass('d-none').addClass('alert-danger')
+                        .html('<i class="fas fa-exclamation-circle me-2"></i><strong>Validation Error:</strong> Please enter a complete email address including domain extension (e.g. <em>name@example.com</em>).');
+                    return false;
+                }
+
+                // 3. Client-Side Phone Check (10 digits starting with 6-9, reject all identical digits like 1111111111)
+                var phoneRegex = /^[6-9]\d{9}$/;
+                var repeatingRegex = /^(\d)\1{9}$/;
+                if (!phoneRegex.test(phone)) {
+                    $('#formPhone').addClass('is-invalid').focus();
+                    $alert.removeClass('d-none').addClass('alert-danger')
+                        .html('<i class="fas fa-exclamation-circle me-2"></i><strong>Validation Error:</strong> Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.');
+                    return false;
+                }
+                if (repeatingRegex.test(phone)) {
+                    $('#formPhone').addClass('is-invalid').focus();
+                    $alert.removeClass('d-none').addClass('alert-danger')
+                        .html('<i class="fas fa-exclamation-circle me-2"></i><strong>Validation Error:</strong> Phone number cannot be repeating dummy digits (e.g. <em>1111111111</em>).');
+                    return false;
+                }
+
+                // 4. Client-Side Message Length Check (Blocks single characters like 'w')
+                if (message.length < 10) {
+                    $('#formMessage').addClass('is-invalid').focus();
+                    $alert.removeClass('d-none').addClass('alert-danger')
+                        .html('<i class="fas fa-exclamation-circle me-2"></i><strong>Validation Error:</strong> Statement of purpose must be at least 10 characters long.');
+                    return false;
+                }
+
+                // Form is valid -> Submit via AJAX
                 var $btn = $('#submitBtn');
                 var originalText = $btn.text();
-                $btn.prop('disabled', true).text('Submitting Application...');
+                $btn.prop('disabled', true).text('Validating & Submitting...');
 
                 $.ajax({
                     type: 'POST',
                     url: 'data_check.php',
                     data: $(this).serialize() + '&apply=1',
-                    success: function (response) {
-                        $('#ajax-alert').removeClass('d-none alert-danger').addClass('alert-success')
-                            .text('Application received successfully! Our admissions office will contact you.');
-                        $('#admissionForm')[0].reset();
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.status === 'success') {
+                            $alert.removeClass('d-none alert-danger').addClass('alert-success')
+                                .html('<i class="fas fa-check-circle me-2"></i>' + res.message);
+                            $('#admissionForm')[0].reset();
+                            $('#admissionForm .form-control').removeClass('is-invalid');
+                        } else {
+                            $alert.removeClass('d-none alert-success').addClass('alert-danger')
+                                .html('<i class="fas fa-exclamation-triangle me-2"></i><strong>Submission Rejected:</strong> ' + res.message);
+                        }
                     },
-                    error: function () {
-                        $('#ajax-alert').removeClass('d-none alert-success').addClass('alert-danger')
-                            .text('An error occurred. Please try again.');
+                    error: function (xhr) {
+                        var errorMsg = 'An unexpected server error occurred. Please verify your connection.';
+                        try {
+                            var json = JSON.parse(xhr.responseText);
+                            if (json.message) errorMsg = json.message;
+                        } catch(e) {}
+                        $alert.removeClass('d-none alert-success').addClass('alert-danger')
+                            .html('<i class="fas fa-times-circle me-2"></i>' + errorMsg);
                     },
                     complete: function () {
                         $btn.prop('disabled', false).text(originalText);

@@ -856,10 +856,10 @@ $result = mysqli_query($data, $sql);
             <p class="text-muted">Learn from world-class legal minds, theorists, and visionary educators.</p>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             <?php while ($info = $result->fetch_assoc()): ?>
-                <div class="col-md-4 col-sm-6">
-                    <div class="faculty-card">
+                <div class="col-lg-4 col-md-6 col-sm-10 col-12 d-flex justify-content-center">
+                    <div class="faculty-card w-100">
                         <div class="faculty-img-wrapper">
                             <img class="faculty-img" src="<?php echo htmlspecialchars($info['image']); ?>"
                                 alt="<?php echo htmlspecialchars($info['name']); ?>">
